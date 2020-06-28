@@ -1,6 +1,15 @@
 class StocksController < ApplicationController
   before_action :set_stock, only: [:show, :edit, :update, :destroy]
 
+  def quote
+    @stock = Stock.find_by_symbol(params[:symbol])
+    if @stock
+      render json: @stock
+    else 
+      render json: 'not found'
+    end
+  end
+
   # GET /stocks
   # GET /stocks.json
   def index
