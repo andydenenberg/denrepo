@@ -17,8 +17,8 @@
     <% @stocks.each do |stock| %>
       <tr>
         <td><%= stock.symbol %></td>
-        <td><%= stock.last_price %></td>
-        <td><%= stock.last_change %></td>
+        <td><%= number_to_currency(stock.last_price) %></td>
+        <td><%= number_to_currency(stock.last_change) %></td>
         <td><%= stock.last_updated %></td>
         <td><%= link_to 'Show', stock %></td>
         <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
