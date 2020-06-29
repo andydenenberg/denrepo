@@ -13,7 +13,7 @@ class StocksController < ApplicationController
   # GET /stocks
   # GET /stocks.json
   def index
-    @stocks = Stock.all
+    @stocks = Stock.all.order(:symbol)
   end
 
   # GET /stocks/1
