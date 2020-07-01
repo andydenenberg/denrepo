@@ -1,7 +1,7 @@
 <main role="main" class="container">
 
 <br><br>
-<%= Time.now.strftime("%m/%d/%Y at %I:%M%p") %>
+<%= Time.now.in_time_zone.strftime("%m/%d/%Y at %I:%M%p") %>
 
 <div class="table-responsive">
 	<table class="table table-bordered table-striped table-sm">
