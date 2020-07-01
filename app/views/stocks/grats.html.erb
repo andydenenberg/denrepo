@@ -1,0 +1,129 @@
+<main role="main" class="container">
+
+<br><br>
+<%= Time.now.strftime("%m/%d/%Y at %I:%M%p") %>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-sm">
+	  <thead>
+	    <tr>
+	      <th>Symbol</th>
+	      <th>Quantity</th>
+		  <th>Cost</th>
+	      <th>Price</th>
+	      <th>Min_Current_Max_</th>
+	      <th>Put Strike</th>
+	      <th>Put_Prices</th>
+		  <th>Put_Values_Cost</th>
+	      <th>Call Strike</th>
+	      <th>Call_Prices</th>
+		  <th>Call_Values_Sale</th>
+	      <th>Entry_Cost</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+		  <% @stocks.each_with_index do |stock,i| %> 
+	      <tr>
+	        <td><%= stock[0] %></td>
+	        <td style="text-align: right"><%= number_with_precision(stock[2], :precision => 0, :delimiter => ',') %></td>
+	        <td style="text-align: right"><%= number_to_currency(stock[3]) %></td>
+	        <td style="text-align: right"><%= number_to_currency(@prices[i][0]) %> </td>
+	        <td style="text-align: right">
+				$<%= number_with_precision(@gains[i][0], :precision => 0, :delimiter => ',')  %>
+					<%= number_to_percentage(@gains[i][3], precision: 1) %><br>
+				<span class="text-primary">$<%= number_with_precision(@gains[i][1], :precision => 0, :delimiter => ',') %></span>
+					<%= number_to_percentage(@gains[i][4], precision: 1) %><br>
+				$<%= number_with_precision(@gains[i][2], :precision => 0, :delimiter => ',')  %>
+					<%= number_to_percentage(@gains[i][5], precision: 1) %>
+			</td>
+	        <td style="text-align: right"><%= stock[4] %></td>
+	        <td style="text-align: right">
+				Bid:<%= @options[i][0][0] %><br>Ask:<%= @options[i][0][1] %>
+				<br><%= number_to_percentage(100 * (@options[i][0][1] - @options[i][0][0]) / @options[i][0][1]) %>
+			</td>
+	        <td style="text-align: right">
+				Buy_put: <%= number_with_precision((@options[i][0][1] *  stock[2]), :precision => 0, :delimiter => ',') %><br>
+				Sell_put: <%= number_with_precision((@options[i][0][0] *  stock[2]), :precision => 0, :delimiter => ',') %><br>
+				Cost: <%= number_with_precision((@options[i][0][0] *  stock[2]) - (@options[i][0][1] *  stock[2]), :precision => 0, :delimiter => ',') %>
+			</td>
+			
+	        <td style="text-align: right"><%= stock[5] %></td>
+	        <td style="text-align: right">
+				Bid:<%= @options[i][1][0] %><br> Ask:<%= @options[i][1][1] %>
+				<br><%= number_to_percentage(100 * (@options[i][1][1] - @options[i][1][0]) / @options[i][1][1]) %></td>
+	        <td style="text-align: right">				
+				Sell_call: <%= number_with_precision((@options[i][1][0] *  stock[2]), :precision => 0, :delimiter => ',') %><br>
+				Buy_call: <%= number_with_precision((@options[i][1][1] *  stock[2]), :precision => 0, :delimiter => ',') %><br>
+				Cost: <%= number_with_precision((@options[i][1][0] *  stock[2]) - (@options[i][1][1] *  stock[2]), :precision => 0, :delimiter => ',') %></td>
+	        <td style="text-align: right"><%= number_with_precision((@options[i][1][0] *  stock[2]) - (@options[i][0][1] *  stock[2]), :precision => 0, :delimiter => ',') %></td>
+	      </tr>		
+		  <% end %>
+  	    <tr>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td style="text-align: right"><%= number_to_currency @total_gain %></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+		 </tr>
+	  </tbody>
+	</table>
+</div>
+
+
+<br><br>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-sm">
+	  <thead>
+	    <tr>
+	      <th>Symbol</th>
+	      <th>Quantity</th>
+	      <th>Price</th>
+		  <th>Cost</th>
+	      <th>Gain</th>
+	      <th>Buy the Collar</th>
+	      <th>Sell the Collar</th>
+	      <th>Collar_Gain_Loss</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+		  <% @stocks.each_with_index do |stock,i| %> 
+	      <tr>
+	        <td><%= stock[0] %></td>
+	        <td style="text-align: right"><%= number_with_precision(stock[2], :precision => 0, :delimiter => ',') %></td>
+	        <td style="text-align: right"><%= number_to_currency(@prices[i][0]) %> <%= number_with_precision(@prices[i][1], :precision => 2, :delimiter => ',') %></td>
+	        <td style="text-align: right"><%= stock[3] %></td>
+	        <td style="text-align: right"><span class="text-primary">$<%= number_with_precision(@gains[i][1], :precision => 0, :delimiter => ',') %></span></td>
+	        <td style="text-align: right">
+				<%= number_with_precision((@options[i][1][0] *  stock[2]) - (@options[i][0][1] *  stock[2]), :precision => 0, :delimiter => ',') %></td>
+	        <td style="text-align: right">
+	        	<%= number_with_precision((@options[i][0][0] *  stock[2]) - (@options[i][1][1] *  stock[2]), :precision => 0, :delimiter => ',') %><br>
+	        </td>
+	        <td style="text-align: right">
+				<%= number_with_precision((@options[i][1][0] *  stock[2]) - (@options[i][0][1] *  stock[2]) + (@options[i][0][0] *  stock[2]) - (@options[i][1][1] *  stock[2]), :precision => 0, :delimiter => ',') %>
+			</td>
+	      </tr>		
+		  <% end %>
+  	    <tr>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+		 </tr>
+	  </tbody>
+	</table>
+</div>
+
+</main>

@@ -1,33 +1,34 @@
+<main role="main" class="container">
 <p id="notice"><%= notice %></p>
+<%= link_to 'New Stock', new_stock_path %>
 
-<h1><%= @stocks.count %> Stocks</h1>
-
-<table>
+<table class="table table-sm">
   <thead>
     <tr>
-      <th>Symbol</th>
-      <th>Last price</th>
-      <th>Last change</th>
-      <th>Update</th>
-      <th colspan="3"></th>
+      <th scope="col">Symbol</th>
+      <th  style="text-align: right" scope="col">Last price</th>
+      <th  style="text-align: right" scope="col">Last change</th>
+      <th  style="text-align: right" scope="col">Update</th>
+      <th  style="text-align: right" scope="col" colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @stocks.each do |stock| %>
       <tr>
         <td><%= stock.symbol %></td>
-        <td><%= number_to_currency(stock.last_price) %></td>
-        <td><%= number_to_currency(stock.last_change) %></td>
-        <td><%= stock.last_updated %></td>
+        <td style="text-align: right"><%= number_to_currency(stock.last_price) %></td>
+        <td style="text-align: right"><%= number_to_currency(stock.last_change) %></td>
+        <td style="text-align: right"><%= stock.updated_at %></td>
         <td><%= link_to 'Show', stock %></td>
         <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
         <td><%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+
   </tbody>
 </table>
 
+</main>
+
 <br>
 
-<%= link_to 'New Stock', new_stock_path %>
