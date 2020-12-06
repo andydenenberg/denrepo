@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_27_201002) do
+ActiveRecord::Schema.define(version: 2020_07_03_134535) do
+
+  create_table "grats", force: :cascade do |t|
+    t.datetime "close_date"
+    t.string "symbol"
+    t.decimal "quantity"
+    t.decimal "cost"
+    t.decimal "current_price"
+    t.string "call_exp_date"
+    t.decimal "call_strike"
+    t.decimal "call_bid"
+    t.decimal "call_ask"
+    t.string "put_exp_date"
+    t.decimal "put_strike"
+    t.decimal "put_bid"
+    t.decimal "put_ask"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "stocks", force: :cascade do |t|
     t.string "symbol"

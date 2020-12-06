@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :grats
+  get 'status', to: 'grats#status', as: 'status'
+  
   resources :stocks
   
   get 'quote', to: 'stocks#quote', as: 'quote'
-  get 'grats', to: 'stocks#grats', as: 'grats'
+  get 'grats_s', to: 'stocks#grats', as: 'grats_s'
   
   
   root 'stocks#index'

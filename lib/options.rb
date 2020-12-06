@@ -5,6 +5,28 @@ module Options
   require 'csv'
   require 'open-uri'
  
+# HLEMX
+# MSFT 
+  def self.finviz_quote
+  	@agent = Mechanize.new
+  	Stock.all.each do |s|
+     symbol = s.symbol
+#symbol = 'HLEMX'
+  		url = "https://finviz.com/quote.ashx?t=#{symbol}"
+  	    begin
+  			page = @agent.get(url)
+  			price = page.xpath('//td[@class="snapshot-td2"]')
+  			prev_close = price[59].text.to_d
+  			current_price = price[65].text.to_d
+  			change = current_price - prev_close
+  			puts "#{symbol} - $#{current_price}  #{change}"
+  		rescue Errno::ETIMEDOUT, Timeout::Error, Net::HTTPNotFound, Mechanize::ResponseCodeError
+        puts "#{symbol} - error retrieving quote"
+  		end       
+  	end
+  end
+
+
   def self.yp_test(n,delay=0)
   	total_count = 0
   	stocks = Stock.where(stock_option: 'Fund').collect { |s| s.symbol }
