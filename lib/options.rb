@@ -5,7 +5,7 @@ module Options
   require 'csv'
   require 'open-uri'
  
-  def fundquote(symbol = 'LQD')
+  def self.fundquote(symbol = 'LQD')
     @agent = Mechanize.new
     url = "https://finance.yahoo.com/quote/#{symbol}?p=#{symbol}"
     page = @agent.get(url)
@@ -18,7 +18,7 @@ module Options
   end
 
 
-  def stockquote(symbol='MSFT')
+  def self.stockquote(symbol='MSFT')
     @agent = Mechanize.new
     url = "https://finance.yahoo.com/quote/#{symbol}?p=#{symbol}"
     page = @agent.get(url)
