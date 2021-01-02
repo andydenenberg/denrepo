@@ -4,9 +4,9 @@ namespace :update do
     task :refresh_data => :environment do
       Options.refresh_data
     end
-  end
   
 end
+
 #   def self.stock_price(symbol)  
 #     url = "https://api.iextrading.com/1.0/stock/#{symbol.upcase}/quote" 
 #     @agent = Mechanize.new
