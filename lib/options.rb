@@ -20,7 +20,7 @@ module Options
     page = @agent.get(url)
     price = page.css('[data-reactid="33"]')[2].text
     change = page.css('[data-reactid="34"]')[2].text.split('(').first.gsub('+','').gsub('-','').strip
-		puts "#{symbol} - $#{price}  #{change}"
+#		puts "#{symbol} - $#{price}  #{change}"
     return [ symbol, price, change ]
 #    q = "#{price} #{change}"
 #    puts q
@@ -33,7 +33,7 @@ module Options
     page = @agent.get(url)
     price = page.css('[data-reactid="50"]').first.text.to_d.to_s
     change = page.css('[data-reactid="51"]')[2].text.split('(').first.gsub('+','').gsub('-','').strip
-    puts "#{symbol} - $#{price}  #{change}"
+#    puts "#{symbol} - $#{price}  #{change}"
     return [ symbol, price, change ]
 #    q = "#{price} #{change}"
 #    puts q
