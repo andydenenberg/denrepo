@@ -70,7 +70,7 @@ end
     url = "https://finance.yahoo.com/quote/#{symbol}?p=#{symbol}"
     page = @agent.get(url)
     price = page.css('[data-reactid="50"]').first.text.gsub(',','').to_d.to_s
-    change = page.css('[data-reactid="51"]')[2].text.split('(').first..gsub(',','')gsub('+','').strip #gsub('-','').strip
+    change = page.css('[data-reactid="51"]')[2].text.split('(').first.gsub('+','').strip #gsub('-','').strip
 #    puts "#{symbol} - $#{price}  #{change}"
     return [ symbol, price, change ]
 #    q = "#{price} #{change}"
