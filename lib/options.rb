@@ -5,6 +5,32 @@ module Options
   require 'csv'
   require 'open-uri'
  
+  def fundquote(symbol = 'LQD')
+    @agent = Mechanize.new
+    url = "https://finance.yahoo.com/quote/#{symbol}?p=#{symbol}"
+    page = @agent.get(url)
+    price = page.css('[data-reactid="33"]')[2].text
+    change = page.css('[data-reactid="34"]')[2].text.split('(').first.gsub('+','').gsub('-','').strip
+		puts "#{symbol} - $#{price}  #{change}"
+    return [ symbol, price, change ]
+#    q = "#{price} #{change}"
+#    puts q
+  end
+
+
+  def stockquote(symbol='MSFT')
+    @agent = Mechanize.new
+    url = "https://finance.yahoo.com/quote/#{symbol}?p=#{symbol}"
+    page = @agent.get(url)
+    price = page.css('[data-reactid="50"]').first.text
+    change = page.css('[data-reactid="51"]')[2].text.split('(').first.gsub('+','').gsub('-','').strip
+		puts "#{symbol} - $#{price}  #{change}"
+    return [ symbol, price, change ]
+#    q = "#{price} #{change}"
+#    puts q
+  end
+
+
 # HLEMX
 # MSFT 
   def self.finviz_quote
