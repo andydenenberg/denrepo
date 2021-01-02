@@ -29,7 +29,8 @@ def self.validate_ydata
 end  
   
   def self.refresh_prices 
-    Stock.all.each do |s| 
+    Stock.all.each_with_index do |s,i| 
+      puts "#{i} - #{s.symbol}"
       if ![ 'VMFXX', 'SWVXX', 'SNVXX', 'SNAXX', 'OGVXX', 'AAPL210115C00520000' ].include? s.symbol
         data = Options.ydata_price(s.symbol)
         s.last_price = data[1]
