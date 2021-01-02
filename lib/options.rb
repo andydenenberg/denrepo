@@ -6,7 +6,7 @@ module Options
   require 'open-uri'
 
 
-def validate_ydata
+def self.validate_ydata
   validation = ''
   starting = Time.now  
     Stock.all.each_with_index do |s,i| 
