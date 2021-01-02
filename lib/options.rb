@@ -4,6 +4,15 @@
 module Options
   require 'csv'
   require 'open-uri'
+  
+  def self.ydata_price(symbol)
+    data = stockquote(symbol)
+    if data[1] == '0.0'
+      data = fundquote(symbol)
+    end
+    return data
+  end
+  
  
   def self.fundquote(symbol = 'LQD')
     @agent = Mechanize.new
@@ -24,13 +33,7 @@ module Options
     page = @agent.get(url)
     price = page.css('[data-reactid="50"]').first.text.to_d.to_s
     change = page.css('[data-reactid="51"]')[2].text.split('(').first.gsub('+','').gsub('-','').strip
-
-		if price != '0.0' 
-      puts "#{symbol} - $#{price}  #{change}"
-    else
-      puts "#{symbol} - "
-    end
-    
+    puts "#{symbol} - $#{price}  #{change}"
     return [ symbol, price, change ]
 #    q = "#{price} #{change}"
 #    puts q
