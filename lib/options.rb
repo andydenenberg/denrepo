@@ -29,7 +29,8 @@ module Options
       puts "#{symbol} - $#{price}  #{change}"
     else
       puts "#{symbol} - "
-
+    end
+    
     return [ symbol, price, change ]
 #    q = "#{price} #{change}"
 #    puts q
