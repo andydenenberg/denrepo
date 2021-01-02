@@ -22,10 +22,10 @@ module Options
     @agent = Mechanize.new
     url = "https://finance.yahoo.com/quote/#{symbol}?p=#{symbol}"
     page = @agent.get(url)
-    price = page.css('[data-reactid="50"]').first.text
+    price = page.css('[data-reactid="50"]').first.text.to_d.to_s
     change = page.css('[data-reactid="51"]')[2].text.split('(').first.gsub('+','').gsub('-','').strip
 
-		if price.is_a? == 'Numeric' 
+		if price != '0.0' 
       puts "#{symbol} - $#{price}  #{change}"
     else
       puts "#{symbol} - "
