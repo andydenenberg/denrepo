@@ -24,7 +24,12 @@ module Options
     page = @agent.get(url)
     price = page.css('[data-reactid="50"]').first.text
     change = page.css('[data-reactid="51"]')[2].text.split('(').first.gsub('+','').gsub('-','').strip
-		puts "#{symbol} - $#{price}  #{change}"
+
+		if price.is_a? == 'Numeric' 
+      puts "#{symbol} - $#{price}  #{change}"
+    else
+      puts "#{symbol} - "
+
     return [ symbol, price, change ]
 #    q = "#{price} #{change}"
 #    puts q
