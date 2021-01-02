@@ -4,7 +4,43 @@
 module Options
   require 'csv'
   require 'open-uri'
+
+
+def validate_ydata
+  validation = ''
+  starting = Time.now  
+    Stock.all.each_with_index do |s,i| 
+      if ![ 'VMFXX', 'SWVXX', 'SNVXX', 'SNAXX', 'OGVXX', 'AAPL210115C00520000' ].include? s.symbol
+  #      puts s.symbol
+        data = Options.ydata_price(s.symbol)
+        repo_price = Stock.find_by_symbol(s.symbol).last_price
+        repo_change = Stock.find_by_symbol(s.symbol).last_change
+        et = starting - Time.now
+        v = "#{i}, #{et}, #{data.first}, #{data[1]}, #{repo_price}, #{data[2]}, #{repo_change}\n"
+         validation += v
+         puts v
+       
+  #      puts "#{data.first}, #{data[1]},  #{data.last}"
+      else
+        puts "#{s.symbol}, 'skipped', skipped' "
+      end
+    end
+    puts validation  
+end  
   
+  def self.fresh_prices 
+    Stock.all.each do |s| 
+      if ![ 'VMFXX', 'SWVXX', 'SNVXX', 'SNAXX', 'OGVXX', 'AAPL210115C00520000' ].include? s.symbol
+        data = Options.ydata_price(s.symbol)
+        s.last_price = data[1]
+        s.last_change = data[2]
+      else
+        s.last_price = 1.0
+        s.last_change = 0.0
+      end
+      s.save
+    end    
+  end
   
   def self.ydata_price(symbol)
     data = stockquote(symbol)
