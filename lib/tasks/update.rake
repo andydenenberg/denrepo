@@ -2,7 +2,7 @@ namespace :update do
   
   desc 'Refresh Prices'
     task :refresh_data => :environment do
-      Options.refresh_data
+      Options.refresh_prices
     end
   
 end
