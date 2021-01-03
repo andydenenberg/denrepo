@@ -43,7 +43,7 @@ class StocksController < ApplicationController
   end  
   
   def lastupdate
-    render json: Stock.order(:updated_at).limit(1).first.updated_at.strftime("%Y-%m-%d %l:%M %p")
+    render json: Stock.order(:updated_at).limit(1).first.updated_at.strftime("%m-%d-%Y %l:%M %p")
   end
   
   def quote
