@@ -42,7 +42,7 @@ class StocksController < ApplicationController
 
   end  
   
-  def last_update
+  def lastupdate
     render json: Stock.order(:updated_at).limit(1).first.updated_at
   end
   
