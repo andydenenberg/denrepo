@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   
   get 'quote', to: 'stocks#quote', as: 'quote'
   get 'grats_s', to: 'stocks#grats', as: 'grats_s'
+  get 'lastupdate', to: 'stocks#lastupdate', as: 'lastupdate'
   
   
   root 'stocks#index'
