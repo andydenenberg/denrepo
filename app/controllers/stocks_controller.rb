@@ -42,6 +42,10 @@ class StocksController < ApplicationController
 
   end  
   
+  def last_update
+    render json: Stock.order(:updated_at).limit(1).first.updated_at
+  end
+  
   def quote
     @stock = Stock.find_by_symbol(params[:symbol])
     if @stock
