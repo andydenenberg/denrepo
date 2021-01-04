@@ -35,12 +35,13 @@ end
         data = Options.ydata_price(s.symbol)
         s.last_price = data[1]
         s.last_change = data[2]
+        s.save
       else
         s.last_price = 1.0
         s.last_change = 0.0
+        s.save
       end
-      s.save
-    end    
+    end        
   end
   
   def self.ydata_price(symbol)
