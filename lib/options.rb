@@ -41,6 +41,8 @@ end
         s.last_change = 0.0
         s.save
       end
+      puts s.inspect
+      
     end        
   end
   
