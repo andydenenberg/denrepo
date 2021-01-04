@@ -33,8 +33,8 @@ end
       puts "#{i} - #{s.symbol}"
       if ![ 'VMFXX', 'SWVXX', 'SNVXX', 'SNAXX', 'OGVXX', 'AAPL210115C00520000' ].include? s.symbol
         data = Options.ydata_price(s.symbol)
-        s.last_price = data[1]
-        s.last_change = data[2]
+        s.last_price = data[1].to_d
+        s.last_change = data[2].to_d
         s.save
       else
         s.last_price = 1.0
