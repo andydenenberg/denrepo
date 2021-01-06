@@ -35,14 +35,12 @@ end
         data = Options.ydata_price(s.symbol)
         s.last_price = data[1].to_d
         s.last_change = data[2].to_d
-        s.save
       else
         s.last_price = 1.0
         s.last_change = 0.0
-        s.save
       end
-      puts s.inspect
-      
+      s.last_updated = Date.today
+      s.save
     end        
   end
   
