@@ -79,15 +79,27 @@ end
 
 
   def self.stockquote(symbol='MSFT')
-    @agent = Mechanize.new
+    @agent = Mechanize.new { |agent|
+      agent.open_timeout   = 20
+      agent.read_timeout   = 20
+    }
     url = "https://finance.yahoo.com/quote/#{symbol}?p=#{symbol}"
-    page = @agent.get(url)
-    price = page.css('[data-reactid="50"]').first.text.gsub(',','').to_d.to_s
-    change = page.css('[data-reactid="51"]')[2].text.split('(').first.gsub('+','').strip #gsub('-','').strip
-#    puts "#{symbol} - $#{price}  #{change}"
-    return [ symbol, price, change ]
-#    q = "#{price} #{change}"
-#    puts q
+    begin
+      page = @agent.get(url)
+      price = page.css('[data-reactid="50"]').first.text.gsub(',','').to_d.to_s
+      change = page.css('[data-reactid="51"]')[2].text.split('(').first.gsub('+','').strip #gsub('-','').strip
+  #    puts "#{symbol} - $#{price}  #{change}"
+    rescue Errno::ETIMEDOUT, Timeout::Error, Net::HTTPNotFound, Mechanize::ResponseCodeError
+      puts "\n\nsymbol:#{symbol} - The request timed out...skipping.\n\n"
+      return ["The request timed out...skipping."]
+    rescue => e
+      puts "\n\nsymbol:#{symbol} - The request returned an error - #{e.inspect}.\n\n"
+      return ["The request returned an error - #{e.inspect}."]
+    end     
+  
+      return [ symbol, price, change ]
+  #    q = "#{price} #{change}"
+  #    puts q
   end
 
 
