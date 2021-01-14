@@ -89,6 +89,10 @@ end
     begin
       page = @agent.get(url)
       price = page.css('[data-reactid="50"]').first.text.gsub(',','').to_d.to_s
+      if price = '9.0'
+        puts "\n\n\n\ 9.0 \n\n\n"
+        return '9.0' # unknown reason why price is sometimes returned as 9.0
+      end
       change = page.css('[data-reactid="51"]')[2].text.split('(').first.gsub('+','').strip #gsub('-','').strip
   #    puts "#{symbol} - $#{price}  #{change}"
     rescue Errno::ETIMEDOUT, Timeout::Error, Net::HTTPNotFound, Mechanize::ResponseCodeError
