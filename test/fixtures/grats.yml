@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  close_date: 2020-07-03 08:45:35
+  symbol: MyString
+  quantity: 9.99
+  cost: 9.99
+  current_price: 9.99
+  call_exp_date: 2020-07-03 08:45:35
+  call_strike: 9.99
+  call_bid: 9.99
+  call_ask: 9.99
+  put_exp_date: MyString
+  datetime: MyString
+  put_strike: 9.99
+  put_bid: 9.99
+  put_ask: 9.99
+
+two:
+  close_date: 2020-07-03 08:45:35
+  symbol: MyString
+  quantity: 9.99
+  cost: 9.99
+  current_price: 9.99
+  call_exp_date: 2020-07-03 08:45:35
+  call_strike: 9.99
+  call_bid: 9.99
+  call_ask: 9.99
+  put_exp_date: MyString
+  datetime: MyString
+  put_strike: 9.99
+  put_bid: 9.99
+  put_ask: 9.99

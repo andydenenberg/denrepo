@@ -1,0 +1,2 @@
+module GratsHelper
+end

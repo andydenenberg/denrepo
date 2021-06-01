@@ -1,0 +1,87 @@
+<%= form_with(model: grat, local: true) do |form| %>
+  <% if grat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(grat.errors.count, "error") %> prohibited this grat from being saved:</h2>
+
+      <ul>
+      <% grat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :close_date %>
+    <%= form.datetime_select :close_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :symbol %>
+    <%= form.text_field :symbol %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.text_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cost %>
+    <%= form.text_field :cost %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_price %>
+    <%= form.text_field :current_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :call_exp_date %>
+    <%= form.text_field :call_exp_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :call_strike %>
+    <%= form.text_field :call_strike %>
+  </div>
+
+  <div class="field">
+    <%= form.label :call_bid %>
+    <%= form.text_field :call_bid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :call_ask %>
+    <%= form.text_field :call_ask %>
+  </div>
+
+  <div class="field">
+    <%= form.label :put_exp_date %>
+    <%= form.text_field :put_exp_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :put_strike %>
+    <%= form.text_field :put_strike %>
+  </div>
+
+  <div class="field">
+    <%= form.label :put_bid %>
+    <%= form.text_field :put_bid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :put_ask %>
+    <%= form.text_field :put_ask %>
+  </div>
+
+  <div class="field">
+    <%= form.label :note %>
+    <%= form.text_field :note %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

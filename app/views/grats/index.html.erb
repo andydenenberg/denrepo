@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Grats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Close date</th>
+      <th>Symbol</th>
+      <th>Quantity</th>
+      <th>Cost</th>
+      <th>Current price</th>
+      <th>Call exp date</th>
+      <th>Call strike</th>
+      <th>Call bid</th>
+      <th>Call ask</th>
+      <th>Put exp date</th>
+      <th>Put strike</th>
+      <th>Put bid</th>
+      <th>Put ask</th>
+      <th>Note</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @grats.each do |grat| %>
+      <tr>
+        <td><%= grat.close_date %></td>
+        <td><%= grat.symbol %></td>
+        <td><%= grat.quantity %></td>
+        <td><%= grat.cost %></td>
+        <td><%= grat.current_price %></td>
+        <td><%= grat.call_exp_date %></td>
+        <td><%= grat.call_strike %></td>
+        <td><%= grat.call_bid %></td>
+        <td><%= grat.call_ask %></td>
+        <td><%= grat.put_exp_date %></td>
+        <td><%= grat.put_strike %></td>
+        <td><%= grat.put_bid %></td>
+        <td><%= grat.put_ask %></td>
+        <td><%= grat.note %></td>
+        <td><%= link_to 'Show', grat %></td>
+        <td><%= link_to 'Edit', edit_grat_path(grat) %></td>
+        <td><%= link_to 'Destroy', grat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Grat', new_grat_path %>
