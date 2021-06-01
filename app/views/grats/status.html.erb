@@ -3,6 +3,58 @@
 <br><br>
 <%= Time.now.in_time_zone.strftime("%m/%d/%Y at %I:%M%p") %>
 
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-sm">
+	  <thead>
+	    <tr>
+	      <th>Symbol</th>
+	      <th style="text-align: right">Quantity</th>
+		  <th style="text-align: right">Cost</th>
+	      <th style="text-align: right">Price</th>
+	      <th style="text-align: right">Change</th>
+	      <th style="text-align: right">Put Strike</th>
+	      <th style="text-align: right">Call Strike</th>
+		  		  
+	      <th style="text-align: right">Minimum</th>
+	      <th style="text-align: right">Current Gain</th>
+	      <th style="text-align: right">Maximum</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+		  <% @grats.each_with_index do |g,i| %> 
+	      <tr>
+	        <td><%= g.symbol %></td>
+	        <td style="text-align: right"><%= number_with_precision(g.quantity, :precision => 0, :delimiter => ',') %></td>
+			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][2]) %></td>
+			<td style="text-align: right"><%= number_to_currency(g.put_strike, precision: 0) %> <%= link_to 'Edit', edit_grat_path(g) %></td>
+			<td style="text-align: right"><%= number_to_currency(g.call_strike, precision: 0) %></td>
+			
+			<td style="text-align: right"><%= number_to_currency(@gains[i][7], precision: 0) %> 
+											<%= number_to_percentage(@gains[i][8], precision: 1) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %> 
+											<%= number_to_percentage(@gains[i][6], precision: 1) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][9], precision: 0) %> 
+											<%= number_to_percentage(@gains[i][10], precision: 1) %></td>
+	      </tr>		
+		  <% end %>
+  	    <tr>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
+  	      <td></td>
+		 </tr>
+	  </tbody>
+	</table>
+</div>
 
 <br><br>
 
