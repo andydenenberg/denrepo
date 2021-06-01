@@ -2,7 +2,8 @@ class GratsController < ApplicationController
   before_action :set_grat, only: [:show, :edit, :update, :destroy]
 
   def status
-    @grats = Grat.find([8,9,10,11,12])
+#    @grats = Grat.find([8,9,10,11,12])
+    @grats = Grat.all
     @remaining = [ 10724, 16271, 40213, 7770, 8245 ]
     @fvm_funding = [ 582976.00, 3457800.00, 2565990.00, 882642.43, 1962304.40 ] 
     @gains = [ ]
