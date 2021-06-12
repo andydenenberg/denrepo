@@ -37,12 +37,12 @@ class Grat < ApplicationRecord
     daily_total_change = daily_total_change + residual_shares * gains[i][2]
 
     text += g.symbol + "<br>"
-    text += "Remaining Shares = #{remaining[i]}<br>"
-    text += "Remaining Value = #{remaining[i] * gains[i][1]}<br>"
-    text += "2nd yr Shares = #{( (fvm_funding[i] * 0.509009462) /  gains[i][1] )}<br>"
-    text += "Residual Shares = #{residual_shares}<br>"
-    text += "Residual Value = #{residual_value}<br>"
-    text += "Daily Change = #{gains[i][2]  * residual_shares}<br>"
+    text += "Remaining Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % remaining[i])}<br>"
+    text += "Remaining Value = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % remaining[i] * gains[i][1]}<br>"
+    text += "2nd yr Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % ( (fvm_funding[i] * 0.509009462) /  gains[i][1] ) )}<br>"
+    text += "Residual Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_shares)}<br>"
+    text += "Residual Value = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_value)}<br>"
+    text += "Daily Change = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % gains[i][2]  * residual_shares)}<br>"
     text += "<br>"
     
     history.push [ g.symbol, remaining[i].to_s, (remaining[i] * gains[i][1]).to_s, ((fvm_funding[i] * 0.509009462) /  gains[i][1]).to_s,
@@ -52,8 +52,8 @@ class Grat < ApplicationRecord
     end
 
     text += "<br>"
-    text += "Residual Total Gain = #{ActiveSupport::NumberHelper.number_to_delimited('%.2f' % residual_total_gain)}<br>"
-    text += "Daily Total = #{ActiveSupport::NumberHelper.number_to_delimited('%.2f' % daily_total_change)}<br>"
+    text += "Residual Total Gain = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}<br>"
+    text += "Daily Total = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}<br>"
     text += "<br>"
     
     return [ text, history, residual_total_gain.to_s, daily_total_change.to_s ]
