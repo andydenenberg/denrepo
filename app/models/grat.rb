@@ -52,8 +52,8 @@ class Grat < ApplicationRecord
     end
 
     text += "<br>"
-    text += "Residual Total Gain = #{ActiveSupport::NumberHelper.number_to_delimited(residual_total_gain)}<br>"
-    text += "Daily Total = #{ActiveSupport::NumberHelper.number_to_delimited(daily_total_change)}<br>"
+    text += "Residual Total Gain = #{ActiveSupport::NumberHelper.number_to_delimited('%.2f' % residual_total_gain)}<br>"
+    text += "Daily Total = #{ActiveSupport::NumberHelper.number_to_delimited('%.2f' % daily_total_change)}<br>"
     text += "<br>"
     
     return [ text, history, residual_total_gain.to_s, daily_total_change.to_s ]
