@@ -1,4 +1,63 @@
 class Grat < ApplicationRecord
+  
+  def self.history
+    grats = Grat.all
+    remaining = [ 10724, 16271, 40213, 7770, 8245 ]
+    fvm_funding = [ 582976.00, 3457800.00, 2565990.00, 882642.43, 1962304.40 ] 
+    gains = [ ]
+    options = [ ]
+    total_gain = 0
+    data = { }
+    grats.each do |stock|
+      current = stock.grat_stats
+      gains.push current
+      
+      data[stock.symbol] = stock.gains
+#      puts data.inspect
+      
+      total_gain += current[5]
+#      puts stock.symbol
+#      options.push stock.collar_stats
+
+    end   
+    
+    daily_gain = 0
+    residual_total_gain = 0
+    daily_total_change = 0
+    history = [ ]
+
+    grats.each_with_index do |g,i| 
+      puts g.symbol
+    residual_value =  gains[i][1] * ( remaining[i] - (fvm_funding[i] * 0.509009462) /  gains[i][1] )
+    residual_total_gain = residual_total_gain + residual_value
+    residual_shares = ( remaining[i] - (fvm_funding[i] * 0.509009462) /  gains[i][1] )
+		  
+		  
+    daily_gain = daily_gain + gains[i][11]		  
+    daily_total_change = daily_total_change + residual_shares * gains[i][2]
+
+    puts "Remaining Shares = #{remaining[i]}"
+    puts "Remaining Value = #{remaining[i] * gains[i][1]}"
+    puts "2nd yr Shares = #{( (fvm_funding[i] * 0.509009462) /  gains[i][1] )}"
+    puts "Residual Shares = #{residual_shares}"
+    puts "Residual Value = #{residual_value}"
+    puts "Daily Change = #{gains[i][2]  * residual_shares}"
+    puts
+    
+    history.push [ g.symbol, remaining[i].to_s, (remaining[i] * gains[i][1]).to_s, ((fvm_funding[i] * 0.509009462) /  gains[i][1]).to_s,
+             residual_shares.to_s, residual_value.to_s, (gains[i][2] * residual_shares).to_s ]
+    
+    
+    end
+
+    puts
+    puts "Residual Total Gain = #{residual_total_gain}"
+    puts "Daily Total = #{daily_total_change}"
+    puts
+    
+    return [ history, residual_total_gain.to_s, daily_total_change.to_s ]
+    
+  end
 
   def current_price
     symbol, price, change = Options.repo_price(self.symbol)

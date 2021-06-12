@@ -14,13 +14,17 @@ class GratsController < ApplicationController
       @gains.push current
       
       @data[stock.symbol] = stock.gains
-      puts @data.inspect
+#      puts @data.inspect
       
       @total_gain += current[5]
-      puts stock.symbol
+#      puts stock.symbol
 #      @options.push stock.collar_stats
-    end
+
+    end    
     
+    h = Grat.history
+    puts h.inspect
+       
   end
   
   # GET /grats

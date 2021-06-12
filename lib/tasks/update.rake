@@ -90,10 +90,7 @@ end
 # def load_data  
 #   
 # # https://finance.yahoo.com/portfolio/p_8/view/view_4
-# 
-
-# remove the comments to use this code
-  
+#   
 #  require 'csv'
 #     file = File.open("/Users/andydenenberg/Downloads/quotes.csv")
 #     data = CSV.parse(file.read)
@@ -105,7 +102,6 @@ end
 #     	puts "Stock.create symbol: '#{s[0]}', last_price: #{s[1]}, last_change: #{lc} "
 #     end 
 #     data = nil
-
 # end
 # 
 # # rails g scaffold grat close_date:datetime symbol:string quantity:decimal cost:decimal current_price:decimal call_exp_date:datetime call_strike:decimal call_bid:decimal call_ask:decimal put_exp_date: datetime put_strike:decimal put_bid:decimal put_ask:decimal 
