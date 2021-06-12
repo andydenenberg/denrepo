@@ -23,7 +23,7 @@ class GratsController < ApplicationController
     end    
     
     h = Grat.history
-    puts h.inspect
+    puts h
        
   end
   

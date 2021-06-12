@@ -1,6 +1,7 @@
 class Grat < ApplicationRecord
   
   def self.history
+    text = '<br>'
     grats = Grat.all
     remaining = [ 10724, 16271, 40213, 7770, 8245 ]
     fvm_funding = [ 582976.00, 3457800.00, 2565990.00, 882642.43, 1962304.40 ] 
@@ -27,7 +28,6 @@ class Grat < ApplicationRecord
     history = [ ]
 
     grats.each_with_index do |g,i| 
-      puts g.symbol
     residual_value =  gains[i][1] * ( remaining[i] - (fvm_funding[i] * 0.509009462) /  gains[i][1] )
     residual_total_gain = residual_total_gain + residual_value
     residual_shares = ( remaining[i] - (fvm_funding[i] * 0.509009462) /  gains[i][1] )
@@ -36,13 +36,14 @@ class Grat < ApplicationRecord
     daily_gain = daily_gain + gains[i][11]		  
     daily_total_change = daily_total_change + residual_shares * gains[i][2]
 
-    puts "Remaining Shares = #{remaining[i]}"
-    puts "Remaining Value = #{remaining[i] * gains[i][1]}"
-    puts "2nd yr Shares = #{( (fvm_funding[i] * 0.509009462) /  gains[i][1] )}"
-    puts "Residual Shares = #{residual_shares}"
-    puts "Residual Value = #{residual_value}"
-    puts "Daily Change = #{gains[i][2]  * residual_shares}"
-    puts
+    text += g.symbol + "<br>"
+    text += "Remaining Shares = #{remaining[i]}<br>"
+    text += "Remaining Value = #{remaining[i] * gains[i][1]}<br>"
+    text += "2nd yr Shares = #{( (fvm_funding[i] * 0.509009462) /  gains[i][1] )}<br>"
+    text += "Residual Shares = #{residual_shares}<br>"
+    text += "Residual Value = #{residual_value}<br>"
+    text += "Daily Change = #{gains[i][2]  * residual_shares}<br>"
+    text += "<br>"
     
     history.push [ g.symbol, remaining[i].to_s, (remaining[i] * gains[i][1]).to_s, ((fvm_funding[i] * 0.509009462) /  gains[i][1]).to_s,
              residual_shares.to_s, residual_value.to_s, (gains[i][2] * residual_shares).to_s ]
@@ -50,12 +51,12 @@ class Grat < ApplicationRecord
     
     end
 
-    puts
-    puts "Residual Total Gain = #{residual_total_gain}"
-    puts "Daily Total = #{daily_total_change}"
-    puts
+    text += "<br>"
+    text += "Residual Total Gain = #{residual_total_gain}<br>"
+    text += "Daily Total = #{daily_total_change}<br>"
+    text += "<br>"
     
-    return [ history, residual_total_gain.to_s, daily_total_change.to_s ]
+    return [ text, history, residual_total_gain.to_s, daily_total_change.to_s ]
     
   end
 
