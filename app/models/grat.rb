@@ -52,8 +52,8 @@ class Grat < ApplicationRecord
     end
 
     text += "<br>"
-    text += "Residual Total Gain = #{residual_total_gain}<br>"
-    text += "Daily Total = #{daily_total_change}<br>"
+    text += "Residual Total Gain = #{ActionView::Helpers::NumberHelper.number_with_delimiter(residual_total_gain)}<br>"
+    text += "Daily Total = #{ActionView::Helpers::NumberHelper.number_with_delimiter(daily_total_change)}<br>"
     text += "<br>"
     
     return [ text, history, residual_total_gain.to_s, daily_total_change.to_s ]
