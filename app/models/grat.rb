@@ -38,7 +38,7 @@ class Grat < ApplicationRecord
 
     text += g.symbol + "<br>"
     text += "Remaining Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % remaining[i])}<br>"
-    text += "Remaining Value = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % remaining[i] * gains[i][1]}<br>"
+    text += "Remaining Value = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % remaining[i] * gains[i][1])}<br>"
     text += "2nd yr Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % ( (fvm_funding[i] * 0.509009462) /  gains[i][1] ) )}<br>"
     text += "Residual Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_shares)}<br>"
     text += "Residual Value = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_value)}<br>"
