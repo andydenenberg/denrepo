@@ -1,6 +1,7 @@
 class Grat < ApplicationRecord
   
   def self.history
+    include ActionView::Helpers::NumberHelper
     text = '<br>'
     grats = Grat.all
     remaining = [ 10724, 16271, 40213, 7770, 8245 ]
