@@ -10,7 +10,7 @@ namespace :update do
                     
           require 'sendgrid-ruby'
           include SendGrid
-          body = "Finished at: #{Time.now.strftime("%m/%d %H:%M")}<br>" + Grat.history.first + "<br>" + Grat.history[1]
+          body = "Finished at: #{Time.now.strftime("%m/%d %H:%M")}<br>" + Grat.history.first + "<br>" + Grat.history[1].to_s + "<br>"
           
           from = Email.new(email: 'winnetkadrone@gmail.com')
           subject = "#{ENV["APP_NAME"]} Daily Snapshot complete"
