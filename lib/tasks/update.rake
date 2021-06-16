@@ -5,6 +5,24 @@ namespace :update do
       Options.refresh_prices
     end
   
+    desc 'Daily Snapshot'
+        task :daily_snapshot => :environment do
+                    
+          require 'sendgrid-ruby'
+          include SendGrid
+          body = "Finished at: #{Time.now.strftime("%m/%d %H:%M")}<br>" + Grat.history.first + "<br>" + Grat.history[1]
+          
+          from = Email.new(email: 'winnetkadrone@gmail.com')
+          subject = "#{ENV["APP_NAME"]} Daily Snapshot complete"
+          to = Email.new(email: 'andy@denenberg.net')
+          content = Content.new(type: 'text/html', value: body)
+          mail = SendGrid::Mail.new(from, subject, to, content)
+
+          sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+          response = sg.client.mail._('send').post(request_body: mail.to_json)
+          
+        end
+  
 end
 
 #   def self.stock_price(symbol)  
