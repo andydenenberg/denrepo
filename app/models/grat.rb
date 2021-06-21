@@ -1,6 +1,7 @@
 class Grat < ApplicationRecord
   
   def self.history
+    redis = [ ]
     text = '<br>'
     grats = Grat.all
     remaining = [ 10724, 16271, 40213, 7770, 8245 ]
@@ -35,6 +36,19 @@ class Grat < ApplicationRecord
 		  
     daily_gain = daily_gain + gains[i][11]		  
     daily_total_change = daily_total_change + residual_shares * gains[i][2]
+    
+    remaining_shares = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % remaining[i])}"
+    remaining_value = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % (remaining[i] * gains[i][1]) )}"
+    second_yr_shares = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % ( (fvm_funding[i] * 0.509009462) /  gains[i][1] ) )}"
+    resid_shares = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_shares)}"
+    resid_value = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_value)}"
+    daily_change = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % (gains[i][2]  * residual_shares) )}"
+    day_gain = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_gain)}"
+    
+    redis_data = [ g.symbol, remaining_shares, remaining_value, second_yr_shares, 
+      resid_shares, resid_value, daily_change, day_gain ]
+      
+      redis.push redis_data
 
     text += g.symbol + "<br>"
     text += "Remaining Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % remaining[i])}<br>"
@@ -50,13 +64,19 @@ class Grat < ApplicationRecord
     
     
     end
-
+    
+    resid_total_gain = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}"
+    redis.push resid_total_gain
+    day_total_change = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}"
+    redis.push day_total_change
+    redis.push Time.now.to_s
+    
     text += "<br>"
     text += "Residual Total Gain = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}<br>"
     text += "Daily Total = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}<br>"
     text += "<br>"
     
-    return [ text, history, residual_total_gain.to_s, daily_total_change.to_s ]
+    return [ text, history, residual_total_gain.to_s, daily_total_change.to_s, redis ]
     
   end
 
