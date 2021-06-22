@@ -7,6 +7,12 @@ namespace :update do
   
     desc 'Daily Snapshot'
         task :daily_snapshot => :environment do
+          
+          # REDIS.keys
+          # REDIS.setex("2021-06-22", 10, 100) delete(expire) in 10 seconds
+          # JSON.parse(REDIS.get(REDIS.keys.last)) retrieve and parse the data
+          
+          REDIS.set(Time.now.strftime("%m/%d/%Y %H:%M", Grat.history[4] )
                     
           require 'sendgrid-ruby'
           include SendGrid
