@@ -23,7 +23,7 @@ namespace :update do
           
           puts 
           puts 'Combined data'
-          puts 'Date Time AMAT CSCO CRM INTC MSFT'
+          puts 'Date Time AMAT CRM CSCO INTC MSFT'
             REDIS.keys.sort.each do |k| 
                 puts "#{k} #{JSON.parse(REDIS.get(k))[0][5].gsub(',','')} #{JSON.parse(REDIS.get(k))[1][5].gsub(',','')} #{JSON.parse(REDIS.get(k))[2][5].gsub(',','') } #{JSON.parse(REDIS.get(k))[3][5].gsub(',','')} #{JSON.parse(REDIS.get(k))[4][5].gsub(',','') }" 
             end
