@@ -5,12 +5,42 @@ namespace :update do
       Options.refresh_prices
     end
   
+    desc 'Extract Redis data'
+        task 'extract_redis'
+          
+          puts 'Summary Data'
+          REDIS.keys.sort.each { |k| puts "#{k} #{JSON.parse(REDIS.get(k))[5].gsub(',','')} #{JSON.parse(REDIS.get(k))[6].gsub(',','')}" }
+          
+          puts
+          puts 'Individual Data'
+          # g.symbol, remaining_shares, remaining_value, second_yr_shares, residual_shares, residual_value, residual_daily_change, original_total_day_gain"
+          puts 'Date Time Symbol Residual_Value Change'
+          (0..REDIS.keys.length-1).each do |s|
+            REDIS.keys.sort.each do |k| 
+                puts "#{k} #{JSON.parse(REDIS.get(k))[s][0]} #{JSON.parse(REDIS.get(k))[s][5].gsub(',','')} #{JSON.parse(REDIS.get(k))[s][6].gsub(',','') }" 
+              end
+          end
+          
+          puts 
+          puts 'Combined data'
+          puts 'Date Time AMAT CSCO CRM INTC MSFT'
+            REDIS.keys.sort.each do |k| 
+                puts "#{k} #{JSON.parse(REDIS.get(k))[0][5].gsub(',','')} #{JSON.parse(REDIS.get(k))[1][5].gsub(',','')} #{JSON.parse(REDIS.get(k))[2][5].gsub(',','') }" 
+            end
+          
+        end
+        
+        
+        
     desc 'Daily Snapshot'
         task :daily_snapshot => :environment do
           
           # REDIS.keys
           # REDIS.setex("2021-06-22", 10, 100) delete(expire) in 10 seconds
           # JSON.parse(REDIS.get(REDIS.keys.last)) retrieve and parse the data
+          # REDIS.keys.sort.each { |k| puts "#{k}, #{JSON.parse(REDIS.get(k))[5]}, #{JSON.parse(REDIS.get(k))[6]}" }
+          # REDIS.keys.sort.each { |k| puts "#{k}, #{JSON.parse(REDIS.get(k))[1]}" }
+          # puts "symbol, remaining_shares, remaining_value, second_year_payback_shares,residual_shares, residual_value, redidual_daily_change"
           
           REDIS.set(Time.now.strftime("%m/%d/%Y %H:%M"), Grat.history[4] )
                     
