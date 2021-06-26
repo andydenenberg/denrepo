@@ -6,7 +6,7 @@ namespace :update do
     end
   
     desc 'Extract Redis data'
-        task 'extract_redis'
+        task 'extract_redis'  => :environment do
           
           puts 'Summary Data'
           REDIS.keys.sort.each { |k| puts "#{k} #{JSON.parse(REDIS.get(k))[5].gsub(',','')} #{JSON.parse(REDIS.get(k))[6].gsub(',','')}" }
