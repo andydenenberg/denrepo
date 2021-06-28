@@ -14,6 +14,7 @@ gem 'mechanize'
 gem 'sendgrid-ruby'
 
 gem 'redis'
+gem "chartkick"
 
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server
