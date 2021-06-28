@@ -15,7 +15,7 @@ namespace :update do
           puts 'Individual Data'
           # g.symbol, remaining_shares, remaining_value, second_yr_shares, residual_shares, residual_value, residual_daily_change, original_total_day_gain"
           puts 'Date Time Symbol Residual_Value Change'
-          (0..REDIS.keys.length-1).each do |s|
+          (0..4).each do |s|
             REDIS.keys.sort.each do |k| 
                 puts "#{k} #{JSON.parse(REDIS.get(k))[s][0]} #{JSON.parse(REDIS.get(k))[s][5].gsub(',','')} #{JSON.parse(REDIS.get(k))[s][6].gsub(',','') }" 
               end
