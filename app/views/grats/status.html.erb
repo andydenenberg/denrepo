@@ -167,6 +167,12 @@
 <% REDIS.keys.sort.each { |k| @total[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
 <% @data.push @total %>
 
+<%= @data %>
+
+<%= line_chart @data %>
+
+
+<% @data = [ ] %>
 <% (0..4).each do |s| %>
 	<% @series = Hash.new %>
 		<% @stock = Hash.new %>
