@@ -162,10 +162,13 @@
 </div>
 
 
-<% @total = Hash.new %>
+<% @name = Hash.new %>
+<% @series = Hash.new %>
 <% @data = [ ] %>
-<% REDIS.keys.sort.each { |k| @total[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
-<% @data.push @total %>
+<% REDIS.keys.sort.each { |k| @series[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
+<% @name['name'] = 'Total' %>
+<% @data.push @name %>
+<% @data.push @series %>
 
 <%= @data %>
 
