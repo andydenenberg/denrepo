@@ -169,9 +169,9 @@
 
 <% (0..4).each do |s| %>
 	<% @series = Hash.new %>
-		<% @series['name'] = JSON.parse(REDIS.get(0))[s][0] %>
 		<% @stock = Hash.new %>
 		<% REDIS.keys.sort.each do |k| %>			
+			<% @series['name'] = JSON.parse(REDIS.get(k))[s][0] %>
 	        <% @stock[k.split(' ').first] = JSON.parse(REDIS.get(k))[s][5].gsub(',','')  %>
 		<% end %>
 		<% @series['data'] = @stock %>
