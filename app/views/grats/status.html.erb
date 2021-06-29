@@ -162,19 +162,20 @@
 </div>
 
 
-
 <% @total = Hash.new %>
 <% @data = [ ] %>
 <% REDIS.keys.sort.each { |k| @total[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
 <% @data.push @total %>
 
 <% (0..4).each do |s| %>
-	<% @stock = Hash.new %>
-		<% REDIS.keys.sort.each do |k| %>
-			<% @symbol = JSON.parse(REDIS.get(k))[s][0] %>
+	<% @series = Hash.new %>
+		<% @series['name'] = JSON.parse(REDIS.get(0))[s][0] %>
+		<% @stock = Hash.new %>
+		<% REDIS.keys.sort.each do |k| %>			
 	        <% @stock[k.split(' ').first] = JSON.parse(REDIS.get(k))[s][5].gsub(',','')  %>
 		<% end %>
-		<% @data.push @stock %>
+		<% @series['data'] = @stock %>
+		<% @data.push @series %>
 <% end %>
 
 <%= @data %>
