@@ -162,19 +162,6 @@
 </div>
 
 
-<% @name = Hash.new %>
-<% @series = Hash.new %>
-<% @data = [ ] %>
-<% REDIS.keys.sort.each { |k| @series[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
-<% @name['name'] = 'Total' %>
-<% @name['data'] = @series %>
-<% @data.push @name %>
-
-<%= @data %>
-
-<%= line_chart @data %>
-
-
 <% @data = [ ] %>
 <% (0..4).each do |s| %>
 	<% @series = Hash.new %>
@@ -187,8 +174,6 @@
 		<% @data.push @series %>
 <% end %>
 
-<%= @data %>
-
 <%= line_chart @data, adapter: "google", library: {
 			seriesType: "line",
 			title: "Residual Amount", chartArea: { width: '85%', height: '80%'},
@@ -196,6 +181,21 @@
 			hAxis: {title: "2021", format: 'MMM dd', gridlines: {color: 'rgb(211,211,211)', count: 6 } }, 
 			vAxis: {gridlines: { color: 'rgb(211,211,211)', count: 50 } } 
 			}, id: "comparison", thousands: ",", prefix: "$", min: -20000, max: 2500000, height: "700px", points: false %>
+			
+			
+
+<% @name = Hash.new %>
+<% @series = Hash.new %>
+<% @data = [ ] %>
+<% REDIS.keys.sort.each { |k| @series[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
+<% @name['name'] = 'Total' %>
+<% @name['data'] = @series %>
+<% @data.push @name %>
+
+
+<%= line_chart @data %>
+
+
 
 
 </div>
