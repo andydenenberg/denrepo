@@ -167,8 +167,8 @@
 <% @data = [ ] %>
 <% REDIS.keys.sort.each { |k| @series[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
 <% @name['name'] = 'Total' %>
+<% @name['data'] = @series %>
 <% @data.push @name %>
-<% @data.push @series %>
 
 <%= @data %>
 
