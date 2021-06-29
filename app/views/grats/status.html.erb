@@ -162,12 +162,24 @@
 </div>
 
 
-<%= line_chart ( {'2021/06/21' => 1166553, '2021/06/22' => 1180281, '2021/06/23' => 1188361, '2021/06/24' => 1200028, '2021/06/25' => 1186258, '2021/06/26' => 1186258, '2021/06/27' => 1186258, '2021/06/28' => 1216765 } ) %>
 
+<% @total = Hash.new %>
+<% @data = [ ] %>
+<% REDIS.keys.sort.each { |k| @total[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
+<% @data.push @total %>
 
-<% @data = Hash.new %>
-<% REDIS.keys.sort.each { |k| @data[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
-<%= line_chart (@data) %>
+<% (0..4).each do |s| %>
+	<% @stock = Hash.new %>
+		<% REDIS.keys.sort.each do |k| %>
+			<% @symbol = JSON.parse(REDIS.get(k))[s][0] %>
+	        <% @stock[k.split(' ').first}] = JSON.parse(REDIS.get(k))[s][5].gsub(',','') 
+		<% end %>
+		<% @data.push @stock %>
+<% end %>
+
+<%= @data %>
+
+<%= line_chart @data %>
 
 
 </div>
