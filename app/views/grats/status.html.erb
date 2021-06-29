@@ -172,7 +172,7 @@
 	<% @stock = Hash.new %>
 		<% REDIS.keys.sort.each do |k| %>
 			<% @symbol = JSON.parse(REDIS.get(k))[s][0] %>
-	        <% @stock[k.split(' ').first}] = JSON.parse(REDIS.get(k))[s][5].gsub(',','')  %>
+	        <% @stock[k.split(' ').first] = JSON.parse(REDIS.get(k))[s][5].gsub(',','')  %>
 		<% end %>
 		<% @data.push @stock %>
 <% end %>
