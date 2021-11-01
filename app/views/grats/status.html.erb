@@ -24,7 +24,7 @@
 			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][2]) %></td>
-			<td style="text-align: right"><%= number_to_currency(g.put_strike, precision: 0) %> <%= link_to 'Edit', edit_grat_path(g) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][4], precision: 0) %> <%= link_to 'Edit', edit_grat_path(g) %></td>
 	      </tr>		
 		  <% end %>
   	    <tr>
