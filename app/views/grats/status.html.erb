@@ -17,6 +17,7 @@
 	  </thead>
 
 	  <tbody>
+		  <% @init_total_value = 0 %>
 		  <% @grats.each_with_index do |g,i| %> 
 	      <tr>
 	        <td><%= g.symbol %></td>
@@ -25,6 +26,7 @@
 			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][2]) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][4], precision: 0) %> <%= link_to 'Edit', edit_grat_path(g) %></td>
+			<% @init_total_value += @gains[i][4] %>
 	      </tr>		
 		  <% end %>
   	    <tr>
@@ -33,11 +35,7 @@
   	      <td></td>
   	      <td></td>
   	      <td></td>
-  	      <td></td>
-  	      <td></td>
-  	      <td></td>
-  	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
-  	      <td></td>
+  	      <td style="text-align: right"><%= number_to_currency(@init_total_value) %></td>
 		 </tr>
 	  </tbody>
 	</table>
