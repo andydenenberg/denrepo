@@ -12,8 +12,11 @@
 	      <th style="text-align: right">Current Price</th>
 	      <th style="text-align: right">Daily Change</th>
 	      <th style="text-align: right">Current Value</th>
-		  <th style="text-align: right">GRAT Transfer Price</th>
-		  <th style="text-align: right">GRAT Transfer Value</th>
+		  <th style="text-align: right">Initial Price</th>
+		  <th style="text-align: right">Initial Value</th>
+	      <th style="text-align: right">Total Gain</th>		  
+	      <th style="text-align: right">Percent Gain</th>		  
+		  
 	    </tr>
 	  </thead>
 
@@ -28,6 +31,9 @@
 			<td style="text-align: right"><%= number_to_currency(@gains[i][4], precision: 0) %> <%= link_to 'Edit', edit_grat_path(g) %></td>
 			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][3]) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %></td>
+			<td style="text-align: right"><%= number_to_percentage(@gains[i][6], precision: 1) %></td>
+			
 			
 			<% @init_total_value += @gains[i][4] %>
 			
@@ -38,8 +44,9 @@
   	      <td></td>
   	      <td></td>
   	      <td></td>
-  	      <td></td>
   	      <td style="text-align: right"><%= number_to_currency(@init_total_value) %></td>
+  	      <td></td>
+  	      <td></td>
 		 </tr>
 	  </tbody>
 	</table>
