@@ -1,7 +1,7 @@
 <div class="container">
 
-<br><br>
-<%= Time.now.in_time_zone.strftime("%m/%d/%Y at %I:%M%p") %>
+<br>
+<p>As of <%= Time.now.in_time_zone.strftime("%m/%d/%Y at %I:%M%p") %></p>
 
 <div class="table-responsive">
 	<table class="table table-bordered table-striped table-sm">
@@ -50,6 +50,7 @@
   	      <td></td>
   	      <td></td>
   	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
+  	      <td></td>
 		 </tr>
 	  </tbody>
 	</table>
@@ -77,6 +78,8 @@
 <% @residual_total_gain = 0 %>
 <% @daily_total_change = 0 %>
 	  <tbody>
+		  <% @total_remaining_value = 0 %>
+		  
 		  <% @grats.each_with_index do |g,i| %> 
 		  <% @residual_value =  @gains[i][1] * ( @remaining[i] - (@fvm_funding[i] * 0.509009462) /  @gains[i][1] ) %>
 		  <% @residual_total_gain = @residual_total_gain + @residual_value %>
@@ -85,6 +88,8 @@
 		  
 <% @daily_gain = @daily_gain + @gains[i][11] %>		  
 <% @daily_total_change = @daily_total_change + @residual_shares * @gains[i][2] %>
+		  <% @total_remaining_value +=  @remaining[i] * @gains[i][1] %>
+
 	      <tr>
 	        <td style="text-align: right"><%= g.symbol %></td>
 			<td style="text-align: right"><%= number_with_precision(@remaining[i], :precision => 0, :delimiter => ',') %></td>
@@ -101,13 +106,11 @@
   	    <tr>
   	      <td></td>
   	      <td></td>
-  	      <td></td>
-  	      <td></td>
+  	      <td style="text-align: right"><%= number_to_currency(@total_remaining_value, precision: 0)  %></td>
   	      <td></td>
   	      <td></td>
   	      <td style="text-align: right"><%= number_to_currency(@residual_total_gain, precision: 0)  %></td>
   	      <td style="text-align: right"><%= number_to_currency(@daily_total_change, precision: 0) %></td>
-  	      <td></td>
 		 </tr>
 	  </tbody>
 	</table>
