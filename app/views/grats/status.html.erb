@@ -25,6 +25,7 @@
 
 	  <tbody>
 		  <% @init_total_value = 0 %>
+		  <% @current_total_value = 0 %>
 		  <% @total_gain = 0 %>
 		  <% @grats.each_with_index do |g,i| %> 
 	      <tr>
@@ -38,7 +39,8 @@
 			<td style="text-align: right"><%= number_to_percentage(@gains[i][6], precision: 1) %></td>
 			
 			
-			<% @init_total_value += @gains[i][4] %>
+			<% @init_total_value += @gains[i][3] %>
+			<% @current_total_value += @gains[i][4] %>
 		  	<% @total_gain +=  @gains[i][5] %>
 			
 	      </tr>		
@@ -47,9 +49,9 @@
   	      <td></td>
   	      <td></td>
   	      <td></td>
-  	      <td></td>
-  	      <td></td>
   	      <td style="text-align: right"><%= number_to_currency(@init_total_value) %></td>
+  	      <td></td>
+  	      <td style="text-align: right"><%= number_to_currency(@current_total_value) %></td>
   	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
   	      <td></td>
 		 </tr>
