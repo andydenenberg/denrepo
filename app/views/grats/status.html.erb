@@ -46,12 +46,8 @@
 	      </tr>		
 		  <% end %>
   	    <tr>
-  	      <td></td>
-  	      <td></td>
-  	      <td></td>
-  	      <td style="text-align: right"><%= number_to_currency(@init_total_value) %></td>
-  	      <td></td>
-  	      <td style="text-align: right"><%= number_to_currency(@current_total_value) %></td>
+  	      <td colspan='4' style="text-align: right"><%= number_to_currency(@init_total_value) %></td>
+  	      <td colspan='2' style="text-align: right"><%= number_to_currency(@current_total_value) %></td>
   	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
   	      <td></td>
 		 </tr>
@@ -62,7 +58,7 @@
 <br><br>
 
 
-<p>After 1st Annuity Payment ( %50.909..) on 5/25/2021</p>
+<p>After 1st Annuity Payment ( %50.909..) made on 5/25/2021</p>
 
 <div class="table-responsive">
 	<table class="table table-bordered table-striped table-sm">
