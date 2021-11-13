@@ -68,6 +68,7 @@
 		</tr>  
 	    <tr>
 	      <th style="text-align: right">Symbol</th>
+	      <th style="text-align: right">1st Annuity Shares</th>
 	      <th style="text-align: right">Remaining Shares</th>
 		  <th style="text-align: right">Remaining Value</th>
 	      <th style="text-align: right">2nd Annuity Shares</th>
@@ -94,6 +95,7 @@
 
 	      <tr>
 	        <td style="text-align: right"><%= g.symbol %></td>
+	        <td style="text-align: right"><%= number_with_precision(g.quantity - @remaining[i], :precision => 0, :delimiter => ',') %></td>
 			<td style="text-align: right"><%= number_with_precision(@remaining[i], :precision => 0, :delimiter => ',') %></td>
 			<td style="text-align: right"><%= number_to_currency(@remaining[i] * @gains[i][1], precision: 0) %></td>
 			<td style="text-align: right"><%= number_with_precision( 
@@ -132,7 +134,7 @@
 
 <%= line_chart @data, adapter: "google", library: {
 			seriesType: "line",
-			title: "Total Residual Amount", chartArea: { width: '85%', height: '80%'},
+			title: "Total Net Value", chartArea: { width: '85%', height: '80%'},
 			legend: { position: 'top', alignment: 'end' }, 
 			hAxis: {title: "2021", format: 'MMM dd', gridlines: {color: 'rgb(211,211,211)', count: 6 } }, 
 			vAxis: {gridlines: { color: 'rgb(211,211,211)', count: 20 } } 
