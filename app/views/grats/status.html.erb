@@ -8,7 +8,7 @@
 	  <thead>
 		<tr>
 		  <td colspan='4'>Initial GRAT on April 5, 2020</td>
-		  <td colspan='5'></td>
+		  <td colspan='5'>Gain before any annuity payments</td>
 		</tr>  
 	    <tr>
 	      <th>Symbol</th>
@@ -16,7 +16,6 @@
 		  <th style="text-align: right">Price</th>
 		  <th style="text-align: right">Value</th>
 	      <th style="text-align: right">Current Price</th>
-	      <th style="text-align: right">Daily Change</th>
 	      <th style="text-align: right">Current Value</th>
 	      <th style="text-align: right">Total Gain</th>		  
 	      <th style="text-align: right">Percent Gain</th>		  
@@ -34,7 +33,6 @@
 			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][3]) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][2]) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][4], precision: 0) %> </td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %></td>
 			<td style="text-align: right"><%= number_to_percentage(@gains[i][6], precision: 1) %></td>
@@ -103,7 +101,7 @@
 													 :precision => 0, :delimiter => ',') %></td>
 			<td style="text-align: right"><%= number_with_precision( @residual_shares, :precision => 0, :delimiter => ',') %></td>
 			<td style="text-align: right"><%= number_to_currency( @residual_value, precision: 0 ) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][2]  * @residual_shares, precision: 0) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][2]  * @residual_shares, precision: 0) %> (<%= number_to_currency(@gains[i][2]) %>)</td>
 			
 	      </tr>		
 		  <% end %>
