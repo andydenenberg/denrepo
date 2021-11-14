@@ -33,7 +33,7 @@
 	        <td style="text-align: right"><%= number_with_precision(g.quantity, :precision => 0, :delimiter => ',') %></td>
 			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][3]) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][1], precision: 0) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][4], precision: 0) %> </td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %></td>
 			<td style="text-align: right"><%= number_to_percentage(@gains[i][6], precision: 1) %></td>
@@ -46,9 +46,9 @@
 	      </tr>		
 		  <% end %>
   	    <tr>
-  	      <td colspan='4' style="text-align: right"><%= number_to_currency(@init_total_value) %></td>
-  	      <td colspan='2' style="text-align: right"><%= number_to_currency(@current_total_value) %></td>
-  	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
+  	      <td colspan='4' style="text-align: right"><%= number_to_currency(@init_total_value, precision: 0) %></td>
+  	      <td colspan='2' style="text-align: right"><%= number_to_currency(@current_total_value, precision: 0) %></td>
+  	      <td style="text-align: right"><%= number_to_currency(@total_gain, precision: 0) %></td>
   	      <td></td>
 		 </tr>
 	  </tbody>
