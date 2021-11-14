@@ -152,13 +152,7 @@
 <% end %>
 
 <%= line_chart @data, adapter: "google", library: {
-			seriesType: "line",
-			title: "Individual GRATs", chartArea: { width: '85%', height: '80%'},
-			legend: { position: 'top', alignment: 'end' }, 
-			hAxis: {title: "2021", format: 'MMM dd', gridlines: {color: 'rgb(211,211,211)', count: 6 } }, 
-			vAxis: {gridlines: { color: 'rgb(211,211,211)', count: 50 } },
-			library: {
-			      yAxis: {
+			yAxis: {
 			           labels: {
 			               format: '${value}'
 			           }
@@ -167,8 +161,12 @@
 			            pointFormat: 'Total Spent: <b>{point.y}</b>',
 			            xDateFormat: '%B',
 			            valuePrefix: '$'
-			          }
-			        } 
+			          },
+			seriesType: "line",
+			title: "Individual GRATs", chartArea: { width: '85%', height: '80%'},
+			legend: { position: 'top', alignment: 'end' }, 
+			hAxis: {title: "2021", format: 'MMM dd', gridlines: {color: 'rgb(211,211,211)', count: 6 } }, 
+			vAxis: {gridlines: { color: 'rgb(211,211,211)', count: 50 } } 
 			}, id: "Individual", thousands: ",", prefix: "$", min: -20000, max: 3500000, height: "700px", points: false %>
 			
 
