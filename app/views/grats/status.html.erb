@@ -152,16 +152,6 @@
 <% end %>
 
 <%= line_chart @data, adapter: "google", library: {
-			yAxis: {
-			           labels: {
-			               format: '${value}'
-			           }
-			       },
-			          tooltip: {
-			            pointFormat: 'Total Spent: <b>{point.y}</b>',
-			            xDateFormat: '%B',
-			            valuePrefix: '$'
-			          },
 			seriesType: "line",
 			title: "Individual GRATs", chartArea: { width: '85%', height: '80%'},
 			legend: { position: 'top', alignment: 'end' }, 
