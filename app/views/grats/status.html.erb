@@ -32,7 +32,7 @@
 	        <td><%= link_to g.symbol, edit_grat_path(g) %></td>
 	        <td style="text-align: right"><%= number_with_precision(g.quantity, :precision => 0, :delimiter => ',') %></td>
 			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][3]) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][3], precision: 0) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][1], precision: 0) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][4], precision: 0) %> </td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %></td>
