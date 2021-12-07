@@ -2,7 +2,7 @@ class Grat < ApplicationRecord
   
   def self.history
     redis = [ ]
-    text = '<br>'
+    text = ''
     grats = Grat.all
     remaining = [ 10724, 16271, 40213, 7770, 8245 ]
     fvm_funding = [ 582976.00, 3457800.00, 2565990.00, 882642.43, 1962304.40 ] 
@@ -65,13 +65,12 @@ class Grat < ApplicationRecord
     
     end
     
-    resid_total_gain = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}"
+    resid_total_gain = "$#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}"
     redis.push resid_total_gain
-    day_total_change = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}"
+    day_total_change = "$#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}"
     redis.push day_total_change
     redis.push Time.now.to_s
     
-    text += "<br>"
     text += "Residual Total Gain = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}<br>"
     text += "Daily Total = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}<br>"
     text += "<br>"
