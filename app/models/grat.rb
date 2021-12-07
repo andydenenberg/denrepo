@@ -50,14 +50,14 @@ class Grat < ApplicationRecord
       
       redis.push redis_data
 
-    text += g.symbol + "<br>"
-    text += "Remaining Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % remaining[i])}<br>"
-    text += "Remaining Value = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % (remaining[i] * gains[i][1]) )}<br>"
-    text += "2nd yr Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % ( (fvm_funding[i] * 0.509009462) /  gains[i][1] ) )}<br>"
-    text += "Residual Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_shares)}<br>"
-    text += "Residual Value = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_value)}<br>"
-    text += "Daily Change = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % (gains[i][2]  * residual_shares) )}<br>"
-    text += "<br>"
+#    text += g.symbol + "<br>"
+#    text += "Remaining Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % remaining[i])}<br>"
+#    text += "Remaining Value = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % (remaining[i] * gains[i][1]) )}<br>"
+#    text += "2nd yr Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % ( (fvm_funding[i] * 0.509009462) /  gains[i][1] ) )}<br>"
+#    text += "Residual Shares = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_shares)}<br>"
+#    text += "Residual Value = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_value)}<br>"
+#    text += "Daily Change = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % (gains[i][2]  * residual_shares) )}<br>"
+#    text += "<br>"
     
     history.push [ g.symbol, remaining[i].to_s, (remaining[i] * gains[i][1]).to_s, ((fvm_funding[i] * 0.509009462) /  gains[i][1]).to_s,
              residual_shares.to_s, residual_value.to_s, (gains[i][2] * residual_shares).to_s ]
