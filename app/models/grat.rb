@@ -65,14 +65,14 @@ class Grat < ApplicationRecord
     
     end
     
-    resid_total_gain = "$#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}"
+    resid_total_gain = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}"
     redis.push resid_total_gain
-    day_total_change = "$#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}"
+    day_total_change = "#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}"
     redis.push day_total_change
     redis.push Time.now.to_s
     
-    text += "Residual Total Gain = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}<br>"
-    text += "Daily Total = #{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}<br>"
+    text += "Residual Total Gain = $#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % residual_total_gain)}<br>"
+    text += "Daily Total = $#{ActiveSupport::NumberHelper.number_to_delimited('%.0f' % daily_total_change)}<br>"
     text += "<br>"
     
     return [ text, history, residual_total_gain.to_s, daily_total_change.to_s, redis ]
