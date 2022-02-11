@@ -12,10 +12,13 @@ module Options
     require 'open-uri'
     html = open("https://query2.finance.yahoo.com/v8/finance/chart/#{symbol}", 'User-Agent' => 'Mozilla').read
     data = JSON.parse(html)
-    date = (Time.at(data["chart"]['result'].first["timestamp"].last) - 6.hours).to_datetime.strftime("%m/%d/%Y %I:%M %p")
-    close = data["chart"]['result'].first["indicators"]["quote"].last["close"].last 
-    puts "#{date} - #{close}"
-    return date, close
+    
+    time = (Time.at(data["chart"]['result'].first["timestamp"].last) - 6.hours).to_datetime.strftime("%m/%d/%Y %I:%M%p")
+    last = data["chart"]['result'].first["indicators"]["quote"].last["close"].last 
+    open = data["chart"]['result'].first["indicators"]["quote"].last["open"].first 
+    change = last - open
+#    puts "#{date} - #{close}"
+    return time, last, open, change
 # gather and pair the minute by minute values
 #    data["chart"]['result'].first["timestamp"].each_with_index { |d,i|
 #    puts "#{(Time.at(d) - 6.hours).to_datetime.strftime('%m/%d/%Y %I:%M %p')} - #{data['chart']['result'].first['indicators']['quote'].last['close'][i]}"
@@ -50,9 +53,11 @@ end
     Stock.all.each_with_index do |s,i| 
       puts "#{i} - #{s.symbol}"
       if ![ 'VMFXX', 'SWVXX', 'SNVXX', 'SNAXX', 'OGVXX', 'AAPL210115C00520000' ].include? s.symbol
-        data = Options.ydata_price(s.symbol)
-        if data.length == 3 # successful retrieval from Yahoo
-          s.last_price = data[1].to_d
+        #data = Options.ydata_price(s.symbol)
+        data = Options.yfinance_quote(s.symbol)
+        
+        if data.length == 2 # successful retrieval from Yahoo
+          s.last_price = data[0].to_d
           s.last_change = data[2].to_d
         end
       else
