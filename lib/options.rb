@@ -7,7 +7,7 @@ module Options
   
   
 
-  def yfinance_quote(symbol)
+  def self.yfinance_quote(symbol)
     
     require 'open-uri'
     html = open("https://query2.finance.yahoo.com/v8/finance/chart/#{symbol}", 'User-Agent' => 'Mozilla').read
