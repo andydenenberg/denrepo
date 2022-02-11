@@ -12,7 +12,7 @@ module Options
     require 'open-uri'
     html = open("https://query2.finance.yahoo.com/v8/finance/chart/#{symbol}", 'User-Agent' => 'Mozilla').read
     data = JSON.parse(html)
-    date = Time.at(data["chart"]['result'].first["timestamp"].last) - 6.hours.to_datetime.strftime("%m/%d/%Y %I:%M %p")
+    date = (Time.at(data["chart"]['result'].first["timestamp"].last) - 6.hours).to_datetime.strftime("%m/%d/%Y %I:%M %p")
     close = data["chart"]['result'].first["indicators"]["quote"].last["close"].last 
     puts "#{date} - #{close}"
     return date, close
