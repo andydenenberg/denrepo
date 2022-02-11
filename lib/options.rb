@@ -4,6 +4,24 @@
 module Options
   require 'csv'
   require 'open-uri'
+  
+  
+
+  def yfinance_quote(symbol)
+    
+    require 'open-uri'
+    html = open("https://query2.finance.yahoo.com/v8/finance/chart/#{symbol}", 'User-Agent' => 'Mozilla').read
+    data = JSON.parse(html)
+    date = Time.at(data["chart"]['result'].first["timestamp"].last).to_datetime.strftime("%m/%d/%Y %I:%M %p")
+    close = data["chart"]['result'].first["indicators"]["quote"].last["close"].last
+    puts "#{date} - #{close}"
+    return date, close
+# gather and pair the minute by minute values
+#    data["chart"]['result'].first["timestamp"].each_with_index { |d,i|
+#    puts "#{(Time.at(d) - 6.hours).to_datetime.strftime('%m/%d/%Y %I:%M %p')} - #{data['chart']['result'].first['indicators']['quote'].last['close'][i]}"
+#    }
+
+  end
 
 
 def self.validate_ydata
