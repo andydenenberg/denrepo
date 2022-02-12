@@ -12,7 +12,7 @@ module Options
       if q[1].nil?
         puts "#{s.symbol} - repo:#{s.last_price} yfinance: nil"
       else
-        puts "#{s.symbol} diff: %0.2f" % (s.last_price.to_d-q[1].to_d).to_s
+        puts "#{s.symbol}, %0.2f" % (s.last_price.to_d-q[1].to_d).to_s
 #        puts "#{s.symbol} - repo:#{s.last_price} yfinance:#{q[1]} diff:#{s.last_price-q[1]}"
       end
     end
