@@ -8,7 +8,7 @@ module Options
   
   def self.test_loop
     Stock.all.each_with_index do |s,i|
-      q = self.yfinance
+      q = self.yfinance_quote(s.symbol)
       puts "#{s.symbol} - #{q.inspect}"
     end
   end
