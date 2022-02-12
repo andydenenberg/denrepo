@@ -23,7 +23,9 @@ module Options
       time = (Time.at(data["chart"]['result'].first["timestamp"].last) - 6.hours).to_datetime.strftime("%m/%d/%Y %I:%M%p")
       last = data["chart"]['result'].first["indicators"]["quote"].last["close"].last 
       open = data["chart"]['result'].first["indicators"]["quote"].last["open"].first 
-      !(last.nil? || open.nil?) ? change = last - open :
+      if !(last.nil? || open.nil?)
+        change = last - open 
+      end
     end
 #    puts "#{date} - #{close}"
     return time, last, open, change
