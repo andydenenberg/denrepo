@@ -9,7 +9,7 @@ module Options
     Stock.all.each_with_index do |s,i|
       puts s.symbol
       q = self.yfinance_quote(s.symbol)
-      if !q[0].nil?
+      if q.count(nil) == 0
         s.last_price = q[1]
         s.last_change = q[2]
         puts "#{s.symbol},%0.2f" % s.last_price
