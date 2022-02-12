@@ -6,6 +6,12 @@ module Options
   require 'open-uri'
   
   
+  def test_loop
+    Stock.all.each_with_index do |s,i|
+      q = self.yfinance
+      puts "#{s.symbol} - #{q.inspect}"
+    end
+  end
 
   def self.yfinance_quote(symbol)
     
@@ -13,10 +19,14 @@ module Options
     html = open("https://query2.finance.yahoo.com/v8/finance/chart/#{symbol}", 'User-Agent' => 'Mozilla').read
     data = JSON.parse(html)
     
-    time = (Time.at(data["chart"]['result'].first["timestamp"].last) - 6.hours).to_datetime.strftime("%m/%d/%Y %I:%M%p")
-    last = data["chart"]['result'].first["indicators"]["quote"].last["close"].last 
-    open = data["chart"]['result'].first["indicators"]["quote"].last["open"].first 
-    change = last - open
+    if !data["chart"]['result'].first["timestamp"].nil?
+      time = (Time.at(data["chart"]['result'].first["timestamp"].last) - 6.hours).to_datetime.strftime("%m/%d/%Y %I:%M%p")
+      last = data["chart"]['result'].first["indicators"]["quote"].last["close"].last 
+      open = data["chart"]['result'].first["indicators"]["quote"].last["open"].first 
+      change = last - open
+    else
+      time, last, open, change = 0
+    end
 #    puts "#{date} - #{close}"
     return time, last, open, change
 # gather and pair the minute by minute values
