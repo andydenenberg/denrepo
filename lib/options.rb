@@ -9,7 +9,7 @@ module Options
   def self.test_loop
     Stock.all.each_with_index do |s,i|
       q = self.yfinance_quote(s.symbol)
-      puts "#{s.symbol} - repo:#{s.price} yfinance:#{q[1]} diff:#{s.price-q[1]}"
+      puts "#{s.symbol} - repo:#{s.last_price} yfinance:#{q[1]} diff:#{s.last_price-q[1]}"
     end
   end
 
