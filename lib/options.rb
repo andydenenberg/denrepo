@@ -11,7 +11,7 @@ module Options
       q = self.yfinance_quote(s.symbol)
       if q.count(nil) == 0
         s.last_price = q[1]
-        s.last_change = q[2]
+        s.last_change = q[3]
         puts "#{s.symbol},%0.2f" % s.last_price
         s.save
       end
