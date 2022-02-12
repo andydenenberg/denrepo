@@ -5,6 +5,17 @@ module Options
   require 'csv'
   require 'open-uri'
   
+  def self.refresh_prices
+    Stock.all.each_with_index do |s,i|
+      q = self.yfinance_quote(s.symbol)
+      if !q[0].nil?
+        s.last_price = q[1]
+        s.last_change = q[2]
+        puts "#{s.symbol},%0.2f" % s.last_price
+        s.save
+      end
+    end
+  end
   
   def self.test_loop
     Stock.all.each_with_index do |s,i|
@@ -64,25 +75,25 @@ def self.validate_ydata
     puts validation  
 end  
   
-  def self.refresh_prices 
-    Stock.all.each_with_index do |s,i| 
-      puts "#{i} - #{s.symbol}"
-      if ![ 'VMFXX', 'SWVXX', 'SNVXX', 'SNAXX', 'OGVXX', 'AAPL210115C00520000' ].include? s.symbol
-        #data = Options.ydata_price(s.symbol)
-        data = Options.yfinance_quote(s.symbol)
-        
-        if data.length == 2 # successful retrieval from Yahoo
-          s.last_price = data[0].to_d
-          s.last_change = data[2].to_d
-        end
-      else
-        s.last_price = 1.0
-        s.last_change = 0.0
-      end
-      s.last_updated = Date.today
-      s.save
-    end        
-  end
+#  def self.refresh_prices 
+#    Stock.all.each_with_index do |s,i| 
+#      puts "#{i} - #{s.symbol}"
+#      if ![ 'VMFXX', 'SWVXX', 'SNVXX', 'SNAXX', 'OGVXX', 'AAPL210115C00520000' ].include? s.symbol
+#        #data = Options.ydata_price(s.symbol)
+#        data = Options.yfinance_quote(s.symbol)
+#        
+#        if data.length == 2 # successful retrieval from Yahoo
+#          s.last_price = data[0].to_d
+#          s.last_change = data[2].to_d
+#        end
+#      else
+#        s.last_price = 1.0
+#        s.last_change = 0.0
+#      end
+#      s.last_updated = Date.today
+#      s.save
+#    end        
+#  end
   
   def self.ydata_price(symbol)
     data = stockquote(symbol)
