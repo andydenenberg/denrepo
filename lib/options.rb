@@ -8,7 +8,6 @@ module Options
   
   def self.test_loop
     Stock.all.each_with_index do |s,i|
-      puts s.symbol
       q = self.yfinance_quote(s.symbol)
       puts "#{s.symbol} - #{q.inspect}"
     end
@@ -19,14 +18,12 @@ module Options
     require 'open-uri'
     html = open("https://query2.finance.yahoo.com/v8/finance/chart/#{symbol}", 'User-Agent' => 'Mozilla').read
     data = JSON.parse(html)
-    
-    if !data["chart"]['result'].first["timestamp"].nil?
+    time, last, open, change = nil, nil, nil, nil
+    if !data["chart"]['result'].first["timestamp"].nil? # check if there is any chart data
       time = (Time.at(data["chart"]['result'].first["timestamp"].last) - 6.hours).to_datetime.strftime("%m/%d/%Y %I:%M%p")
       last = data["chart"]['result'].first["indicators"]["quote"].last["close"].last 
       open = data["chart"]['result'].first["indicators"]["quote"].last["open"].first 
-      change = last - open
-    else
-      time, last, open, change = 0
+      !(last.nil? || open.nil?) ? change = last - open :
     end
 #    puts "#{date} - #{close}"
     return time, last, open, change
