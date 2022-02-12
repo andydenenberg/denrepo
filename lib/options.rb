@@ -6,7 +6,7 @@ module Options
   require 'open-uri'
   
   
-  def test_loop
+  def self.test_loop
     Stock.all.each_with_index do |s,i|
       q = self.yfinance
       puts "#{s.symbol} - #{q.inspect}"
