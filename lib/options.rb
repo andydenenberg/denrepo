@@ -7,6 +7,7 @@ module Options
   
   def self.refresh_prices
     Stock.all.each_with_index do |s,i|
+      puts s.symbol
       q = self.yfinance_quote(s.symbol)
       if !q[0].nil?
         s.last_price = q[1]
