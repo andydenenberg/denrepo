@@ -10,9 +10,9 @@ module Options
     Stock.all.each_with_index do |s,i|
       q = self.yfinance_quote(s.symbol)
       if q[1].nil?
-        puts "#{s.symbol} - repo:#{s.last_price} yfinance: nil"
+        puts "#{s.symbol}, nil, #{s.last_price}, nil"
       else
-        puts "#{s.symbol}, %0.2f" % (s.last_price.to_d-q[1].to_d).to_s
+        puts "#{s.symbol}, %0.2f" % (s.last_price.to_d-q[1].to_d).to_s + "#{s.last_price}," + "%0.2f" % q[1]
 #        puts "#{s.symbol} - repo:#{s.last_price} yfinance:#{q[1]} diff:#{s.last_price-q[1]}"
       end
     end
