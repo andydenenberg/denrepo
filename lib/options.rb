@@ -30,7 +30,7 @@ module Options
     end
   end
   
-  def yfinance_option_quote(symbol, option_type, expiration_date, strike)
+  def self.yfinance_option_quote # (symbol, option_type, expiration_date, strike)
     #    MSFT Feb 2022 145.000 call
     #    MSFT
     #   220218
