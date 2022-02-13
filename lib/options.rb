@@ -29,10 +29,24 @@ module Options
       end
     end
   end
+  
+  def yfinance_option_quote(symbol, option_type, expiration_date, strike)
+    #    MSFT Feb 2022 145.000 call
+    #    MSFT
+    #   220218
+    #    C
+    #    00145000
+    html = open("https://query2.finance.yahoo.com/v7/finance/options/MSFT220218C00145000"
+    data = JSON.parse(html)
+    bid, ask = nil, nil
+    if data["option_chain"]["result"].length > 0
+      bid = data["option_chain"]["result"].first["quote"]["bid"]
+      ask = data["option_chain"]["result"].first["quote"]["ask"]
+    end
+    return bid, ask, data   
+  end
 
   def self.yfinance_quote(symbol)
-    
-    require 'open-uri'
     html = open("https://query2.finance.yahoo.com/v8/finance/chart/#{symbol}", 'User-Agent' => 'Mozilla').read
     data = JSON.parse(html)
     time, last, open, change = nil, nil, nil, nil
