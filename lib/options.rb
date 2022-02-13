@@ -39,9 +39,9 @@ module Options
     html = open("https://query2.finance.yahoo.com/v7/finance/options/MSFT220218C00145000", 'User-Agent' => 'Mozilla').read
     data = JSON.parse(html)
     bid, ask = nil, nil
-    if data["option_chain"]["result"].length > 0
-      bid = data["option_chain"]["result"].first["quote"]["bid"]
-      ask = data["option_chain"]["result"].first["quote"]["ask"]
+    if data["option_Chain"]["result"].length > 0
+      bid = data["option_Chain"]["result"].first["quote"]["bid"]
+      ask = data["option_Chain"]["result"].first["quote"]["ask"]
     end
     return bid, ask, data   
   end
