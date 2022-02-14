@@ -30,6 +30,10 @@ module Options
     end
   end
   
+  
+# https://towardsdatascience.com/free-stock-data-for-python-using-yahoo-finance-api-9dafd96cad2e
+# https://github.com/ranaroussi/yfinance  
+  
   def self.yfinance_option_quote # (symbol, option_type, expiration_date, strike)
     #    MSFT Feb 2022 145.000 call
     #    MSFT
