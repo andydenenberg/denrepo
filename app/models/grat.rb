@@ -4,8 +4,8 @@ class Grat < ApplicationRecord
     redis = [ ]
     text = ''
     grats = Grat.all
-    remaining = [ 10724, 16271, 40213, 7770, 8245 ]
-    fvm_funding = [ 582976.00, 3457800.00, 2565990.00, 882642.43, 1962304.40 ] 
+    remaining = [ 10724, 16271, 40213, 7770, 8245, 1 ]
+    fvm_funding = [ 582976.00, 3457800.00, 2565990.00, 882642.43, 1962304.40, 1 ] 
     gains = [ ]
     options = [ ]
     total_gain = 0
