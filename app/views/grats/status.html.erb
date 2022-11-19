@@ -12,12 +12,6 @@
 		  <th style="text-align: right">Cost</th>
 	      <th style="text-align: right">Price</th>
 	      <th style="text-align: right">Change</th>
-	      <th style="text-align: right">Put Strike</th>
-	      <th style="text-align: right">Call Strike</th>
-		  		  
-	      <th style="text-align: right">Minimum</th>
-	      <th style="text-align: right">Current Gain</th>
-	      <th style="text-align: right">Maximum</th>
 	    </tr>
 	  </thead>
 
@@ -29,15 +23,6 @@
 			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][2]) %></td>
-			<td style="text-align: right"><%= number_to_currency(g.put_strike, precision: 0) %> <%= link_to 'Edit', edit_grat_path(g) %></td>
-			<td style="text-align: right"><%= number_to_currency(g.call_strike, precision: 0) %></td>
-			
-			<td style="text-align: right"><%= number_to_currency(@gains[i][7], precision: 0) %> 
-											<%= number_to_percentage(@gains[i][8], precision: 1) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %> 
-											<%= number_to_percentage(@gains[i][6], precision: 1) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][9], precision: 0) %> 
-											<%= number_to_percentage(@gains[i][10], precision: 1) %></td>
 	      </tr>		
 		  <% end %>
   	    <tr>
@@ -68,9 +53,6 @@
 	      <th style="text-align: right">Change</th>
 	      <th style="text-align: right">Gain</th>		  
 	      <th style="text-align: right">Change</th>
-	      <th style="text-align: right">Collar Cost</th>
-	      <th style="text-align: right">Collar Value</th>
-	      <th style="text-align: right">Net Collar Effect</th>
 	    </tr>
 	  </thead>
 
@@ -83,9 +65,6 @@
 			<td style="text-align: right"><%= number_to_currency(@gains[i][2]) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][11], precision: 0) %></td>
-			<td style="text-align: right"><%= number_to_currency(@options[i][4], precision: 0) %></td>
-			<td style="text-align: right"><%= number_to_currency(@options[i][5], precision: 0) %></td>
-			<td style="text-align: right"><%= number_to_currency(@options[i][6], precision: 0) %></td>
 	      </tr>		
 		  <% end %>
   	    <tr>
@@ -114,9 +93,6 @@
 	      <th style="text-align: right">Change</th>
 	      <th style="text-align: right">Gain</th>		  
 	      <th style="text-align: right">Change</th>
-	      <th style="text-align: right">Collar Cost</th>
-	      <th style="text-align: right">Collar Value</th>
-	      <th style="text-align: right">Net Collar</th>
 	    </tr>
 	  </thead>
 
@@ -129,9 +105,6 @@
 			<td style="text-align: right"><%= number_to_currency(g.gains[:change]) %></td>
 			<td style="text-align: right"><%= number_to_currency(g.gains[:gain], precision: 0) %></td>
 			<td style="text-align: right"><%= number_to_currency(g.gains[:gain_change], precision: 0) %></td>
-			<td style="text-align: right"><%= number_to_currency(g.collars[:collar_cost], precision: 0) %> <%= g.collars[:put_ask] %></td>
-			<td style="text-align: right"><%= number_to_currency(g.collars[:collar_value], precision: 0) %> <%= g.collars[:put_ask] %></td>
-			<td style="text-align: right"><%= number_to_currency(g.collars[:collar_net], precision: 0) %></td>
 	      </tr>		
 		  <% end %>
   	    <tr>
