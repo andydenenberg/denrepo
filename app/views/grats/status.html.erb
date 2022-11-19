@@ -1,54 +1,55 @@
 <div class="container">
 
-<br>
-<p>As of <%= Time.now.in_time_zone.strftime("%m/%d/%Y at %I:%M%p") %></p>
+<br><br>
+<%= Time.now.in_time_zone.strftime("%m/%d/%Y at %I:%M%p") %>
 
 <div class="table-responsive">
 	<table class="table table-bordered table-striped table-sm">
 	  <thead>
-		<tr>
-		  <td colspan='4' class="table-primary">Initial GRATs on April 5, 2020</td>
-		  <td colspan='4' class="table-secondary">Gain before any annuity payments</td>
-		</tr>  
 	    <tr>
 	      <th>Symbol</th>
-	      <th style="text-align: right">Shares</th>
-		  <th style="text-align: right">Price</th>
-		  <th style="text-align: right">Value</th>
-	      <th style="text-align: right">Current Price</th>
-	      <th style="text-align: right">Current Value</th>
-	      <th style="text-align: right">Total Gain</th>		  
-	      <th style="text-align: right">Percent Gain</th>		  
-		  
+	      <th style="text-align: right">Quantity</th>
+		  <th style="text-align: right">Cost</th>
+	      <th style="text-align: right">Price</th>
+	      <th style="text-align: right">Change</th>
+	      <th style="text-align: right">Put Strike</th>
+	      <th style="text-align: right">Call Strike</th>
+		  		  
+	      <th style="text-align: right">Minimum</th>
+	      <th style="text-align: right">Current Gain</th>
+	      <th style="text-align: right">Maximum</th>
 	    </tr>
 	  </thead>
 
 	  <tbody>
-		  <% @init_total_value = 0 %>
-		  <% @current_total_value = 0 %>
-		  <% @total_gain = 0 %>
 		  <% @grats.each_with_index do |g,i| %> 
 	      <tr>
-	        <td><%= link_to g.symbol, edit_grat_path(g) %></td>
+	        <td><%= g.symbol %></td>
 	        <td style="text-align: right"><%= number_with_precision(g.quantity, :precision => 0, :delimiter => ',') %></td>
 			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][3], precision: 0) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][1], precision: 0) %> (<%= number_to_currency(@gains[i][2], precision: 2) %>)</td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][4], precision: 0) %> </td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %></td>
-			<td style="text-align: right"><%= number_to_percentage(@gains[i][6], precision: 1) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][2]) %></td>
+			<td style="text-align: right"><%= number_to_currency(g.put_strike, precision: 0) %> <%= link_to 'Edit', edit_grat_path(g) %></td>
+			<td style="text-align: right"><%= number_to_currency(g.call_strike, precision: 0) %></td>
 			
-			
-			<% @init_total_value += @gains[i][3] %>
-			<% @current_total_value += @gains[i][4] %>
-		  	<% @total_gain +=  @gains[i][5] %>
-			
+			<td style="text-align: right"><%= number_to_currency(@gains[i][7], precision: 0) %> 
+											<%= number_to_percentage(@gains[i][8], precision: 1) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %> 
+											<%= number_to_percentage(@gains[i][6], precision: 1) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][9], precision: 0) %> 
+											<%= number_to_percentage(@gains[i][10], precision: 1) %></td>
 	      </tr>		
 		  <% end %>
   	    <tr>
-  	      <td colspan='4' style="text-align: right"><%= number_to_currency(@init_total_value, precision: 0) %></td>
-  	      <td colspan='2' style="text-align: right"><%= number_to_currency(@current_total_value, precision: 0) %></td>
-  	      <td style="text-align: right"><%= number_to_currency(@total_gain, precision: 0) %></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
   	      <td></td>
 		 </tr>
 	  </tbody>
@@ -57,108 +58,95 @@
 
 <br><br>
 
-
-
 <div class="table-responsive">
 	<table class="table table-bordered table-striped table-sm">
 	  <thead>
-		<tr>
-		  <td colspan='4' class="table-info">1st Annuity Payment ( %50.909..) made on 5/25/2021</td>
-		  <td colspan='4' class="table-success">Pending 2nd Annuity Payment to be made on or before 04/05/2022</td>
-		</tr>  
 	    <tr>
+	      <th>Date</th>
 	      <th style="text-align: right">Symbol</th>
-	      <th style="text-align: right">1st Annuity Shares</th>
-	      <th style="text-align: right">Remaining Shares</th>
-		  <th style="text-align: right">Remaining Value</th>
-	      <th style="text-align: right">2nd Annuity Shares</th>
-	      <th style="text-align: right">Net Shares</th>
-	      <th style="text-align: right">Net Value</th>
-	      <th style="text-align: right">Daily Change</th>		  
+	      <th style="text-align: right">Price</th>
+	      <th style="text-align: right">Change</th>
+	      <th style="text-align: right">Gain</th>		  
+	      <th style="text-align: right">Change</th>
+	      <th style="text-align: right">Collar Cost</th>
+	      <th style="text-align: right">Collar Value</th>
+	      <th style="text-align: right">Net Collar Effect</th>
 	    </tr>
 	  </thead>
-<% @daily_gain = 0 %>
-<% @residual_total_gain = 0 %>
-<% @daily_total_change = 0 %>
-	  <tbody>
-		  <% @total_remaining_value = 0 %>
-		  
-		  <% @grats.each_with_index do |g,i| %> 
-		  <% @residual_value =  @gains[i][1] * ( @remaining[i] - (@fvm_funding[i] * 0.509009462) /  @gains[i][1] ) %>
-		  <% @residual_total_gain = @residual_total_gain + @residual_value %>
-		  <% @residual_shares = ( @remaining[i] - (@fvm_funding[i] * 0.509009462) /  @gains[i][1] )%>
-		  
-		  
-<% @daily_gain = @daily_gain + @gains[i][11] %>		  
-<% @daily_total_change = @daily_total_change + @residual_shares * @gains[i][2] %>
-		  <% @total_remaining_value +=  @remaining[i] * @gains[i][1] %>
 
+	  <tbody>
+		  <% @grats.each_with_index do |g,i| %> 
 	      <tr>
+	        <td><%= g.close_date.strftime("%m/%d/%Y") %></td>
 	        <td style="text-align: right"><%= g.symbol %></td>
-	        <td style="text-align: right"><%= number_with_precision(g.quantity - @remaining[i], :precision => 0, :delimiter => ',') %></td>
-			<td style="text-align: right"><%= number_with_precision(@remaining[i], :precision => 0, :delimiter => ',') %></td>
-			<td style="text-align: right"><%= number_to_currency(@remaining[i] * @gains[i][1], precision: 0) %></td>
-			<td style="text-align: right"><%= number_with_precision( 
-													( (@fvm_funding[i] * 0.509009462) /  @gains[i][1] ),
-													 :precision => 0, :delimiter => ',') %></td>
-			<td style="text-align: right"><%= number_with_precision( @residual_shares, :precision => 0, :delimiter => ',') %></td>
-			<td style="text-align: right"><%= number_to_currency( @residual_value, precision: 0 ) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][2]  * @residual_shares, precision: 0) %> (<%= number_to_currency(@gains[i][2]) %>)</td>
-			
+			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][2]) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %></td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][11], precision: 0) %></td>
+			<td style="text-align: right"><%= number_to_currency(@options[i][4], precision: 0) %></td>
+			<td style="text-align: right"><%= number_to_currency(@options[i][5], precision: 0) %></td>
+			<td style="text-align: right"><%= number_to_currency(@options[i][6], precision: 0) %></td>
 	      </tr>		
 		  <% end %>
   	    <tr>
-  	      <td colspan='4' style="text-align: right"><%= number_to_currency(@total_remaining_value, precision: 0)  %></td>
-  	      <td colspan='3' style="text-align: right"><%= number_to_currency(@residual_total_gain, precision: 0)  %></td>
-  	      <td style="text-align: right"><%= number_to_currency(@daily_total_change, precision: 0) %></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
 		 </tr>
 	  </tbody>
 	</table>
 </div>
 
 
-			
+<br><br>
 
-<% @name = Hash.new %>
-<% @series = Hash.new %>
-<% @data = [ ] %>
-<% REDIS.keys.sort.each { |k| @series[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
-<% @name['name'] = 'Total' %>
-<% @name['data'] = @series %>
-<% @data.push @name %>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-sm">
+	  <thead>
+	    <tr>
+	      <th>Date</th>
+	      <th style="text-align: right">Symbol</th>
+	      <th style="text-align: right">Price</th>
+	      <th style="text-align: right">Change</th>
+	      <th style="text-align: right">Gain</th>		  
+	      <th style="text-align: right">Change</th>
+	      <th style="text-align: right">Collar Cost</th>
+	      <th style="text-align: right">Collar Value</th>
+	      <th style="text-align: right">Net Collar</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+		  <% @grats.each_with_index do |g,i| %> 
+	      <tr>
+	        <td><%= g.close_date.strftime("%m/%d/%Y") %></td>
+	        <td style="text-align: right"><%= g.symbol %> <%= g.id %></td>
+			<td style="text-align: right"><%= number_to_currency(g.gains[:price]) %></td>
+			<td style="text-align: right"><%= number_to_currency(g.gains[:change]) %></td>
+			<td style="text-align: right"><%= number_to_currency(g.gains[:gain], precision: 0) %></td>
+			<td style="text-align: right"><%= number_to_currency(g.gains[:gain_change], precision: 0) %></td>
+			<td style="text-align: right"><%= number_to_currency(g.collars[:collar_cost], precision: 0) %> <%= g.collars[:put_ask] %></td>
+			<td style="text-align: right"><%= number_to_currency(g.collars[:collar_value], precision: 0) %> <%= g.collars[:put_ask] %></td>
+			<td style="text-align: right"><%= number_to_currency(g.collars[:collar_net], precision: 0) %></td>
+	      </tr>		
+		  <% end %>
+  	    <tr>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
+		 </tr>
+	  </tbody>
+	</table>
+</div>
 
 
-<%= line_chart @data, adapter: "google", library: {
-			seriesType: "line",
-			title: "Total Net Value", chartArea: { width: '85%', height: '80%'},
-			legend: { position: 'top', alignment: 'end' }, 
-			hAxis: {title: "2021", format: 'MMM dd', gridlines: {color: 'rgb(211,211,211)', count: 6 } }, 
-			vAxis: {gridlines: { color: 'rgb(211,211,211)', count: 20 } } 
-			}, id: "Total", thousands: ",", prefix: "$", min: 3000000, max: 7500000, height: "700px", points: true %>
-
-
-
-
-<% @data = [ ] %>
-<% (0..4).each do |s| %>
-	<% @series = Hash.new %>
-		<% @stock = Hash.new %>
-		<% REDIS.keys.sort.each do |k| %>			
-			<% @series['name'] = JSON.parse(REDIS.get(k))[s][0] %>
-	        <% @stock[k.split(' ').first] = JSON.parse(REDIS.get(k))[s][5].gsub(',','')  %>
-		<% end %>
-		<% @series['data'] = @stock %>
-		<% @data.push @series %>
-<% end %>
-
-<%= line_chart @data, adapter: "google", library: {
-			seriesType: "line",
-			title: "Individual GRATs", chartArea: { width: '85%', height: '80%'},
-			legend: { position: 'top', alignment: 'end' }, 
-			hAxis: {title: "2021", format: 'MMM dd', gridlines: {color: 'rgb(211,211,211)', count: 6 } }, 
-			vAxis: {gridlines: { color: 'rgb(211,211,211)', count: 50, prefix: "$" } } 
-			}, id: "Individual", thousands: ",", prefix: "$", min: -100000, max: 3500000, height: "700px", points: false %>
-			
-<br>Update 8/12/2022
 
 </div>
