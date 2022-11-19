@@ -12,7 +12,7 @@
 	      <th style="text-align: right">Symbol</th>
 	      <th style="text-align: right">Quantity</th>
 		  <th style="text-align: right">Cost</th>
-	      <th style="text-align: right">Price(Day Change)</th>
+	      <th style="text-align: right">Last Price</th>
 	      <th style="text-align: right">Total Gain</th>		  
 	      <th style="text-align: right">Price Change</th>
 	      <th style="text-align: right">Gain Change</th>
@@ -26,7 +26,7 @@
 	        <td style="text-align: right"><%= g.symbol %></td>
 	        <td style="text-align: right"><%= number_with_precision(g.quantity, :precision => 0, :delimiter => ',') %></td>
 			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
-			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %> (<%= number_to_currency(@gains[i][2]) %>)</td>
+			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][2]) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][11], precision: 0) %></td>
@@ -44,47 +44,5 @@
 	  </tbody>
 	</table>
 </div>
-
-
-<br><br>
-
-<div class="table-responsive">
-	<table class="table table-bordered table-striped table-sm">
-	  <thead>
-	    <tr>
-	      <th>Date</th>
-	      <th style="text-align: right">Symbol</th>
-	      <th style="text-align: right">Price</th>
-	      <th style="text-align: right">Change</th>
-	      <th style="text-align: right">Gain</th>		  
-	      <th style="text-align: right">Change</th>
-	    </tr>
-	  </thead>
-
-	  <tbody>
-		  <% @grats.each_with_index do |g,i| %> 
-	      <tr>
-	        <td><%= g.close_date.strftime("%m/%d/%Y") %></td>
-	        <td style="text-align: right"><%= g.symbol %> <%= g.id %></td>
-			<td style="text-align: right"><%= number_to_currency(g.gains[:price]) %></td>
-			<td style="text-align: right"><%= number_to_currency(g.gains[:change]) %></td>
-			<td style="text-align: right"><%= number_to_currency(g.gains[:gain], precision: 0) %></td>
-			<td style="text-align: right"><%= number_to_currency(g.gains[:gain_change], precision: 0) %></td>
-	      </tr>		
-		  <% end %>
-  	    <tr>
-  	      <td></td>
-  	      <td></td>
-  	      <td></td>
-  	      <td></td>
-  	      <td></td>
-  	      <td></td>
-  	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
-		 </tr>
-	  </tbody>
-	</table>
-</div>
-
-
 
 </div>
