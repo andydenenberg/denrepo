@@ -40,49 +40,4 @@
 	</table>
 </div>
 
-
-<% @name = Hash.new %>
-<% @series = Hash.new %>
-<% @data = [ ] %>
-<% REDIS.keys.sort.each { |k| @series[k.split(' ').first] = JSON.parse(REDIS.get(k))[5].gsub(',','').to_i } %>
-<% @name['name'] = 'Total' %>
-<% @name['data'] = @series %>
-<% @data.push @name %>
-
-
-<%= line_chart @data, adapter: "google", library: {
-			seriesType: "line",
-			title: "Total Net Value", chartArea: { width: '85%', height: '80%'},
-			legend: { position: 'top', alignment: 'end' }, 
-			hAxis: {title: "2021", format: 'MMM dd', gridlines: {color: 'rgb(211,211,211)', count: 6 } }, 
-			vAxis: {gridlines: { color: 'rgb(211,211,211)', count: 20 } } 
-			}, id: "Total", thousands: ",", prefix: "$", min: 3000000, max: 7500000, height: "700px", points: true %>
-
-
-
-
-<% @data = [ ] %>
-<% (0..4).each do |s| %>
-	<% @series = Hash.new %>
-		<% @stock = Hash.new %>
-		<% REDIS.keys.sort.each do |k| %>			
-			<% @series['name'] = JSON.parse(REDIS.get(k))[s][0] %>
-	        <% @stock[k.split(' ').first] = JSON.parse(REDIS.get(k))[s][5].gsub(',','')  %>
-		<% end %>
-		<% @series['data'] = @stock %>
-		<% @data.push @series %>
-<% end %>
-
-<%= line_chart @data, adapter: "google", library: {
-			seriesType: "line",
-			title: "Individual GRATs", chartArea: { width: '85%', height: '80%'},
-			legend: { position: 'top', alignment: 'end' }, 
-			hAxis: {title: "2021", format: 'MMM dd', gridlines: {color: 'rgb(211,211,211)', count: 6 } }, 
-			vAxis: {gridlines: { color: 'rgb(211,211,211)', count: 50, prefix: "$" } } 
-			}, id: "Individual", thousands: ",", prefix: "$", min: -100000, max: 3500000, height: "700px", points: false %>
-			
-<br>Update 8/12/2022
-
-
-
 </div>
