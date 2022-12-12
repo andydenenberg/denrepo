@@ -8,6 +8,7 @@ class GratsController < ApplicationController
     @gains = [ ]
     @options = [ ]
     @total_gain = 0
+    @total_loss = 0
     @data = { }
     @grats.each do |stock|
       current = stock.grat_stats
@@ -16,7 +17,12 @@ class GratsController < ApplicationController
       @data[stock.symbol] = stock.gains
 #      puts @data.inspect
       
-      @total_gain += current[5]
+      
+      if current[5] > 0 # losses don't offset
+        @total_gain += current[5]
+      else
+        @total_loss += current[5]
+      end
 #      puts stock.symbol
 #      @options.push stock.collar_stats
 
