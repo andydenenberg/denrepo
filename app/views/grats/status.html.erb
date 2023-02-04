@@ -17,7 +17,7 @@
 	      <th style="text-align: right">Gain/Loss</th>		  
 	    </tr>
 	  </thead>
-
+<% @total = 0 %>
 	  <tbody>
 		  <% @grats.each_with_index do |g,i| %> 
 	      <tr>
@@ -27,6 +27,7 @@
 			<td style="text-align: right"><%= number_to_currency(g.cost) %></td>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][1]) %></td>
 			<td style="text-align: right"><%= number_to_currency(g.quantity * @gains[i][1]) %></td>
+				<% @total += g.quantity * @gains[i][1] %>
 			<td style="text-align: right"><%= number_to_currency(@gains[i][5], precision: 0) %></td>
 	      </tr>		
 		  <% end %>
@@ -35,8 +36,8 @@
   	      <td></td>
   	      <td></td>
   	      <td></td>
-  	      <td></td>
   	      <th style="text-align: right">Total Gains</th>
+  	      <th style="text-align: right"><%= @total %></th>
   	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
 		 </tr>
   	    <tr>
