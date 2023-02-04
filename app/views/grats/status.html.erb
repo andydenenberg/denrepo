@@ -36,8 +36,8 @@
   	      <td></td>
   	      <td></td>
   	      <td></td>
+  	      <td></td>
   	      <th style="text-align: right">Total Gains</th>
-  	      <th style="text-align: right"><%= @total %></th>
   	      <td style="text-align: right"><%= number_to_currency(@total_gain) %></td>
 		 </tr>
   	    <tr>
@@ -49,6 +49,16 @@
   	      <th style="text-align: right">Total Losses</th>
   	      <td style="text-align: right"><%= number_to_currency(@total_loss) %></td>
 		 </tr>
+  	    <tr>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <td></td>
+  	      <th style="text-align: right">Total Value</th>
+  	      <td style="text-align: right"><%= number_to_currency(@total) %></td>
+  	      <td></td>
+		 </tr>
+  	    <tr>
 	  </tbody>
 	</table>
 </div>
